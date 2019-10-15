@@ -14,7 +14,10 @@ const routes: Routes = [
   {
     path: 'list',
     loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
-  },  { path: 'recherche', loadChildren: './recherche/recherche.module#RecherchePageModule' }
+  },
+  { path: 'recherche', loadChildren: './recherche/recherche.module#RecherchePageModule' },
+  { path: 'indicateurs', loadChildren: './indicateurs/indicateurs.module#IndicateursPageModule' },
+  { path: 'visualiser-indicateurs', loadChildren: './visualiser-indicateurs/visualiser-indicateurs.module#VisualiserIndicateursPageModule' }
 
 ];
 
