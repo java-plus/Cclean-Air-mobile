@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Cclean'Air</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-padding-horizontal">
+    <ion-row class="ion-padding-top">
+      <ion-col size="9">
+        <ion-label>Se connecter</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-padding-left">
+      <ion-col size="10">
+        <form #formAuthentification="ngForm">
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" placeholder="admin@mail.com / user@mail.com" class="w-100" required #email="ngModel"
+              [(ngModel)]="utilisateur.email" name="email" id="email"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" class="w-100" placeholder="admin / user" required id="motDePasse"
+              #motDePasse="ngModel" [(ngModel)]="utilisateur.motDePasse" name="motDePasse"></ion-input>
+          </ion-item>
+        </form>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-padding-top">
+      <ion-col size="6">
+        <ion-button class="button" shape="round" expand="block" (click)="authentifier(formAuthentification)">Valider
+        </ion-button>
+      </ion-col>
+      <ion-text class="ion-padding-top" *ngIf="statutErreur==true" color="danger">Identifiants incorrects, merci
+        de réessayer.
+      </ion-text>
+    </ion-row>
+  </ion-grid>
+</ion-content>

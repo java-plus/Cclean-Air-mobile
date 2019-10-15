@@ -14,7 +14,9 @@ const routes: Routes = [
   {
     path: 'list',
     loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
-  },  { path: 'recherche', loadChildren: './recherche/recherche.module#RecherchePageModule' }
+  },  { path: 'recherche', loadChildren: './recherche/recherche.module#RecherchePageModule' },
+  { path: 'mon-profil', loadChildren: './mon-profil/mon-profil.module#MonProfilPageModule' },
+  { path: 'authentification', loadChildren: './authentification/authentification.module#AuthentificationPageModule' }
 
 ];
 
