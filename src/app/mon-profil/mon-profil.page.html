@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Cclean'Air</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="modif==false">
+  <ion-row class="ion-padding ion-text-center">
+    <ion-title>Mon Profil</ion-title>
+  </ion-row>
+  <ion-row class="ion-padding">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          Nom :
+        </ion-col>
+        <ion-col size="6">
+          {{utilisateur.nom}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          Prénom :
+        </ion-col>
+        <ion-col size="6">
+          {{utilisateur.prenom}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          Adresse mail :
+        </ion-col>
+        <ion-col>
+          {{utilisateur.email}}
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-padding-bottom">
+        <ion-col size="6">
+          Commune :
+        </ion-col>
+        <ion-col>
+          {{utilisateur.commune}}
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-padding-top">
+        <ion-col size="12">
+          <ion-button class="button" shape="round" expand="block" (click)="modifierProfil()">Modifier compte
+            <ion-icon slot="end" name="clipboard"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-button class="button" shape="round" expand="block">Modifier mot de passe
+            <ion-icon name="finger-print"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-button class="button" shape="round" expand="block">Voir mes alertes
+            <ion-icon name="information-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-row>
+</ion-content>
+

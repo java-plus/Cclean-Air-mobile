@@ -16,6 +16,8 @@ const routes: Routes = [
     loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
   },
   { path: 'recherche', loadChildren: './recherche/recherche.module#RecherchePageModule' },
+  { path: 'mon-profil', loadChildren: './mon-profil/mon-profil.module#MonProfilPageModule' },
+  { path: 'authentification', loadChildren: './authentification/authentification.module#AuthentificationPageModule' },
   { path: 'indicateurs', loadChildren: './indicateurs/indicateurs.module#IndicateursPageModule' },
   { path: 'visualiser-indicateurs', loadChildren: './visualiser-indicateurs/visualiser-indicateurs.module#VisualiserIndicateursPageModule' }
 
@@ -27,4 +29,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

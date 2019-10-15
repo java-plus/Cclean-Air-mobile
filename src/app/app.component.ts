@@ -20,6 +20,11 @@ export class AppComponent {
       title: 'Indicateurs',
       url: '/visualiser-indicateurs',
       icon: 'speedometer'
+    },
+    {
+      title: 'Mon profil',
+      url: '/mon-profil',
+      icon: 'person'
     }
   ];
 
