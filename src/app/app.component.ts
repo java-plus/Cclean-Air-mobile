@@ -18,7 +18,7 @@ export class AppComponent {
     },
     {
       title: 'Indicateurs',
-      url: '/visualiser-indicateurs',
+      url: '/indicateurs',
       icon: 'speedometer'
     },
     {

@@ -18,8 +18,8 @@ const routes: Routes = [
   { path: 'recherche', loadChildren: './recherche/recherche.module#RecherchePageModule' },
   { path: 'mon-profil', loadChildren: './mon-profil/mon-profil.module#MonProfilPageModule' },
   { path: 'authentification', loadChildren: './authentification/authentification.module#AuthentificationPageModule' },
-  { path: 'indicateurs', loadChildren: './indicateurs/indicateurs.module#IndicateursPageModule' },
-  { path: 'visualiser-indicateurs', loadChildren: './visualiser-indicateurs/visualiser-indicateurs.module#VisualiserIndicateursPageModule' }
+  { path: 'indicateurs', loadChildren: './visualiser-indicateurs/visualiser-indicateurs.module#VisualiserIndicateursPageModule' },
+  { path: 'indicateurs/creer', loadChildren: './creer-indicateurs/creer-indicateurs.module#CreerIndicateursPageModule' }
 
 ];
 

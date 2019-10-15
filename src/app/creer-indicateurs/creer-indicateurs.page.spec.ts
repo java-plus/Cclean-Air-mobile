@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IndicateursPage } from './indicateurs.page';
+import { CreerIndicateursPage } from './creer-indicateurs.page';
 
-describe('IndicateursPage', () => {
-  let component: IndicateursPage;
-  let fixture: ComponentFixture<IndicateursPage>;
+describe('CreerIndicateursPage', () => {
+  let component: CreerIndicateursPage;
+  let fixture: ComponentFixture<CreerIndicateursPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IndicateursPage ],
+      declarations: [ CreerIndicateursPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IndicateursPage);
+    fixture = TestBed.createComponent(CreerIndicateursPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
