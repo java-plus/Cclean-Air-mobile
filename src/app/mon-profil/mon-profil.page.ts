@@ -16,6 +16,7 @@ export class MonProfilPage implements OnInit {
   modif: boolean = false;
   modifMdp: boolean = false;
   suppression: boolean = false;
+  message: boolean = false;
 
   /**
    * Constructeur
@@ -44,9 +45,8 @@ export class MonProfilPage implements OnInit {
         this.modif = false;
         this.modifMdp = false;
         this.suppression = false;
+        this.message = true;
         this.error = '';
-        setTimeout(function() { alert('Votre compte a bien été modifié'); });
-
       }, (err: any) => {
         this.error = err.error;
       });

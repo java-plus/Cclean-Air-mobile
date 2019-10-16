@@ -10,7 +10,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="modif==false && modifMdp==false && suppression==false">
+<ion-content *ngIf="modif==false && modifMdp==false && suppression==false && message==false">
   <ion-row class="ion-padding ion-text-center" style="height:15%">
     <ion-title>Mon Profil</ion-title>
   </ion-row>
@@ -190,6 +190,19 @@
     <ion-col size="6">
       <ion-button class="button" shape="round" expand="block" (click)="suppression=false">Annuler
         <ion-icon slot="end" name="close-circle"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+<ion-content *ngIf="message==true">
+  <ion-title class="ion-padding ion-text-center" style="height: 50%;">Votre compte a bien été modifié<br>
+    <ion-icon class="ion-padding-top" name="checkbox" size="large" color="success"></ion-icon>
+  </ion-title>
+  <ion-row>
+    <ion-col size="3"></ion-col>
+    <ion-col size="6">
+      <ion-button class="button" shape="round" expand="block" (click)="message=false">Ok
       </ion-button>
     </ion-col>
   </ion-row>
