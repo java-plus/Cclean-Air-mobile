@@ -26,6 +26,10 @@ const routes: Routes = [
         loadChildren: () => import('./authentification/authentification.module').then(m => m.AuthentificationPageModule)
     },
     {
+        path: 'accueil-visiteur',
+        loadChildren: () => import('./accueil-visiteur/accueil-visiteur.module').then(m => m.AccueilVisiteurPageModule)
+    },
+    {  
         path: 'indicateurs',
         loadChildren: () => import('./visualiser-indicateurs/visualiser-indicateurs.module').then(m => m.VisualiserIndicateursPageModule)
     },
@@ -41,7 +45,6 @@ const routes: Routes = [
         path: 'communes/historique/:codeInsee',
         loadChildren: () => import('./historique-commune/historique-commune.module').then(m => m.HistoriqueCommunePageModule)
     }
-
 ];
 
 @NgModule({
