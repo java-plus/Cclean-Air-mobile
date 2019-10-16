@@ -1,5 +1,6 @@
 <ion-header>
   <ion-toolbar>
+    <ion-icon routerLink="/indicateurs" name="arrow-back"></ion-icon>
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -13,6 +14,26 @@
 
   <ion-toolbar>
     <ion-title class="ion-text-center ion-margin-bottom ion-margin-top">MES INDICATEURS</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar class="ion-margin-top">
+    <ion-item class="ion-margin-top" lines="none">
+      <ion-label>Communes</ion-label>
+      <ion-select ok-text="Ok" cancel-text="Cancel" #commune="ngModel" [(ngModel)]="indicateurCreation.commune">
+        <ion-select-option *ngFor="let ville of listeCommunes" value="{{ville}}" name="commune" ngDefaultControl>
+          {{ville}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item class="ion-margin-top " lines="none">
+      <ion-label>Recevoir une alerte pollution</ion-label>
+      <ion-checkbox color="primary" slot="start" name="alerte" [(ngModel)]="indicateurCreation.alerte"
+        #alerte="ngModel"></ion-checkbox>
+    </ion-item>
+    <ion-button expand="block" shape="round" class="ion-margin-top" (click)="creerIndicateur(indicateurCreation)">
+      Créer
+    </ion-button>
+    <ion-text *ngIf="messageErreur != null" color="danger">{{messageErreur}}</ion-text>
   </ion-toolbar>
 
 </ion-content>

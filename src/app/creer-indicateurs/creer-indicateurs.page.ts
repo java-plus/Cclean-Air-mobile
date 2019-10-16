@@ -1,8 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { IndicateurCreation } from '../entities/Indicateur-creation';
-import { EventEmitter } from 'events';
-import { CommuneIndicateur } from '../entities/commune-indicateur';
 import { IndicateursService } from '../services/indicateursService';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-creer-indicateurs',
@@ -37,7 +36,7 @@ export class CreerIndicateursPage implements OnInit {
    * @param dataService
    * @param indicateursService
    */
-  constructor(private indicateursService: IndicateursService) { }
+  constructor(private indicateursService: IndicateursService, private router: Router) { }
 
   ngOnInit() { }
 
@@ -46,15 +45,15 @@ export class CreerIndicateursPage implements OnInit {
    * @param indicateurCreation
    */
   creerIndicateur(indicateurCreation: IndicateurCreation) {
+    console.log(indicateurCreation)
     if (indicateurCreation.alerte == null) {
       indicateurCreation.alerte = false;
     }
     this.indicateursService.enregistrerIndicateur(indicateurCreation).subscribe(
       () => {
-
+        this.router.navigate(["/indicateurs"]);
       },
       err => {
-
         this.messageErreur = err.error;
       }
     );

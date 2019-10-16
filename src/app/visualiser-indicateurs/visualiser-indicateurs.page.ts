@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommuneIndicateur } from 'src/app/entities/commune-indicateur';
 import { IndicateursService } from 'src/app/services/indicateursService';
 
@@ -13,27 +13,8 @@ export class VisualiserIndicateursPage implements OnInit {
 
   indicateurVide = true;
 
-  affichageIndicateurs = true;
-
-  suppressionIndicateur = false;
-
-  creationIndicateur = false;
-
   compteurIndicateurs = true;
 
-  communeSuppression: CommuneIndicateur;
-
-
-  /**
-   * variable qui sert à gérer l'affichage des composant enfant
-   */
-  @Output() childEvent: EventEmitter<{
-    etat: number;
-    indicateurCourant: CommuneIndicateur;
-  }> = new EventEmitter<{
-    etat: number;
-    indicateurCourant: CommuneIndicateur;
-  }>();
 
   /**
    * constructeur
@@ -64,18 +45,5 @@ export class VisualiserIndicateursPage implements OnInit {
       );
 
   }
-
-  /**
- * méthode qui sert à passer à l'affichage de création d'un indicateur
- */
-  creerIndicateur() {
-    this.childEvent.emit({ etat: 1, indicateurCourant: null });
-  }
-
-
-  afficherDonnees(indicateur: CommuneIndicateur) {
-    this.childEvent.emit({ etat: 3, indicateurCourant: indicateur })
-  }
-
 
 }
