@@ -1,28 +1,24 @@
-import {NgModule} from '@angular/core';
-import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-    {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full'
-    },
-    {
-        path: 'home',
-        loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
-    },
-    {
-        path: 'list',
-        loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
-    },
-    {
-        path: 'recherche',
-        loadChildren: () => import('./recherche/recherche.module').then(m => m.RecherchePageModule)
-    },
-    {
-        path: 'inscription',
-        loadChildren: () => import('./inscription/inscription.module').then(m => m.InscriptionPageModule)
-    }
+  {
+    path: '',
+    redirectTo: 'accueil',
+    pathMatch: 'full'
+  },
+  {
+    path: 'recherche',
+    loadChildren: () => import('./recherche/recherche.module').then(m => m.RecherchePageModule)
+  },
+  {
+    path: 'inscription',
+    loadChildren: () => import('./inscription/inscription.module').then(m => m.InscriptionPageModule)
+  },
+  {path: 'accueil', loadChildren: './accueil/accueil.module#AccueilPageModule'},
+  {path: 'mon-profil', loadChildren: './mon-profil/mon-profil.module#MonProfilPageModule'},
+  {path: 'authentification', loadChildren: './authentification/authentification.module#AuthentificationPageModule'}
+
 
 ];
 
