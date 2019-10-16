@@ -15,8 +15,14 @@ const routes: Routes = [
         path: 'list',
         loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
     },
-    {path: 'recherche', loadChildren: './recherche/recherche.module#RecherchePageModule'},
-    {path: 'inscription', loadChildren: './inscription/inscription.module#InscriptionPageModule'}
+    {
+        path: 'recherche',
+        loadChildren: () => import('./recherche/recherche.module').then(m => m.RecherchePageModule)
+    },
+    {
+        path: 'inscription',
+        loadChildren: () => import('./inscription/inscription.module').then(m => m.InscriptionPageModule)
+    }
 
 ];
 

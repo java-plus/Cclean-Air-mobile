@@ -6,15 +6,12 @@ import {RouterModule, Routes} from '@angular/router';
 import {IonicModule} from '@ionic/angular';
 
 import {InscriptionPage} from './inscription.page';
+import {RgpdDetailsComponent} from './rgpd-details/rgpd-details.component';
 
 const routes: Routes = [
     {
         path: '',
         component: InscriptionPage
-    },
-    {
-        path: 'rgpd',
-        loadChildren: () => import('./infos-rgpd/infos-rgpd.module').then(m => m.InfosRGPDPageModule)
     }
 ];
 
@@ -25,7 +22,7 @@ const routes: Routes = [
         IonicModule,
         RouterModule.forChild(routes)
     ],
-    declarations: [InscriptionPage]
+    declarations: [InscriptionPage, RgpdDetailsComponent]
 })
 export class InscriptionPageModule {
 }

@@ -6,6 +6,9 @@ import {environment} from '../../environments/environment';
 
 const URL_BACKEND = environment.backendUrl;
 
+/**
+ * Classe regroupant les services liés à l'inscription.
+ */
 @Injectable({
     providedIn: 'root'
 })

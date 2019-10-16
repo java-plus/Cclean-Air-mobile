@@ -3,10 +3,12 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {UtilisateurInscription} from '../entities/utilisateur-inscription';
 import {NgForm} from '@angular/forms';
 import {InscriptionService} from './inscription.service';
-import {ModalController} from '@ionic/angular';
-import {InfosRGPDPage} from './infos-rgpd/infos-rgpd.page';
 import {Router} from '@angular/router';
 
+/**
+ * Page gérant l'affiche du formulaire d'inscription et les informations sur le
+ * stockage des données.
+ */
 @Component({
     selector: 'app-inscription',
     templateUrl: './inscription.page.html',
@@ -16,25 +18,29 @@ export class InscriptionPage {
 
     champsInvalideMsg = 'Champ invalide.';
     motDePasseDeConfirmation: string;
-    utilisateur: UtilisateurInscription = new UtilisateurInscription(null, null, null, null, ['MEMBRE'], null, null, false);
+    utilisateur: UtilisateurInscription = new UtilisateurInscription(null,
+        null, null, null, ['MEMBRE'],
+        null, null, false);
     isErreurCreation = false;
     isFormulaireValide = true;
     isRGPDCoche: boolean;
     fonctionnalite = 'create';
-    erreurMsg: string;
 
     /**
      * Constructeur
-     * @param inscriptionService : InscriptionService le service gérant les inscriptions
+     * @param inscriptionService : InscriptionService le service gérant les
+     * inscriptions
      * @param router : Router
      */
-    constructor(private inscriptionService: InscriptionService, private router: Router) {
+    constructor(private inscriptionService: InscriptionService,
+                private router: Router) {
     }
 
     /**
-     * Méthode de création d'un compte qui appelle la méthode dans le service d'inscription.
+     * Méthode de création d'un compte qui appelle la méthode dans le service
+     * d'inscription.
      */
-    creerCompte(formInscription: NgForm) {
+    creerCompte(formInscription: NgForm): void {
         if (formInscription.invalid) {
             this.isFormulaireValide = false;
             return;
@@ -43,18 +49,38 @@ export class InscriptionPage {
             () => {
                 this.isFormulaireValide = true;
                 this.isErreurCreation = false;
-                this.fonctionnalite = 'read';
-                this.utilisateur = new UtilisateurInscription(null, null, null, null, ['MEMBRE'], null, null, false);
+                this.fonctionnalite = 'affichageCompteCree';
+                this.utilisateur = new UtilisateurInscription(null,
+                    null, null, null, ['MEMBRE'],
+                    null, null, false);
             },
             (error: HttpErrorResponse) => {
-                this.erreurMsg = error.error;
+                this.isFormulaireValide = true;
                 this.isErreurCreation = true;
             }
         );
     }
 
-    afficherPageRGPD() {
-        this.router.navigate(['/inscription/rgpd']);
+    /**
+     * Méthode affichant le composant des détails sur le rgpd.
+     */
+    afficherInfosRGPD(): void {
+        this.fonctionnalite = 'rgpd';
+    }
+
+    /**
+     * Méthode affichant le formulaire.
+     */
+    afficherFormulaire(): void {
+        this.fonctionnalite = 'create';
+    }
+
+    /**
+     * Méthode affichant le message de confirmation de succès de création de
+     * compte.
+     */
+    redirigerVersPageConnexion(): void {
+        this.router.navigate(['/authentification']);
     }
 
 }

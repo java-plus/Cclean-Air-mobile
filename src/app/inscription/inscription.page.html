@@ -5,31 +5,28 @@
 </ion-header>
 
 <ion-content>
-    <ion-card>
+    <ion-card *ngIf="fonctionnalite === 'create'">
         <ion-card-header>
             <h1>S'inscrire</h1>
         </ion-card-header>
         <ion-card-content>
-            <form #formInscription="ngForm" *ngIf="fonctionnalite !== 'read'"
-                  class="card-body">
+            <form #formInscription="ngForm">
 
                 <ion-item>
                     <ion-input #nom="ngModel"
                                [(ngModel)]="utilisateur.nom"
-                               id="nom"
                                name="nom" placeholder="Nom" required
                                type="text">
                     </ion-input>
                 </ion-item>
                 <ion-item>
-                    <ion-input #prenoms="ngModel"
-                               [(ngModel)]="utilisateur.prenom"
+                    <ion-input [(ngModel)]="utilisateur.prenom"
                                name="prenoms"
                                placeholder="Prénom" required type="text">
                     </ion-input>
                 </ion-item>
                 <ion-item>
-                    <ion-input #email="ngModel" [(ngModel)]="utilisateur.email"
+                    <ion-input [(ngModel)]="utilisateur.email"
                                name="email"
                                pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
                                placeholder="Email"
@@ -62,7 +59,6 @@
                         #mdp2="ngModel" [(ngModel)]="motDePasseDeConfirmation"
                         class="w-100 text-dark"
                         name="motDePasse2"
-                        pattern="{{utilisateur.motDePasse}}"
                         placeholder="Confirmation du mot de passe."
                         required
                         type="password">
@@ -101,17 +97,13 @@
                 <ion-item lines="none">
                     <ion-checkbox #checkboxRGPD="ngModel"
                                   [(ngModel)]="isRGPDCoche" name="rgpdCheckbox"
-                                  slot="start">
+                                  required slot="start">
                     </ion-checkbox>
                     <ion-label text-wrap>
+                        <ion-text color="medium">[Requis]</ion-text>
                         J'accepte que Cclean-Air traite les données
-                        reccueillies dans ce formulaire. [Requis]
+                        reccueillies dans ce formulaire.
                     </ion-label>
-                </ion-item>
-                <ion-item lines="none">
-                    <ion-button (click)="afficherPageRGPD()" fill="clear">
-                        En savoir plus sur la gestion des données.
-                    </ion-button>
                 </ion-item>
                 <ion-item *ngIf="((checkboxRGPD.dirty && !isRGPDCoche)
                     || (!isRGPDCoche && !isFormulaireValide))">
@@ -121,12 +113,58 @@
                         </p>
                     </ion-text>
                 </ion-item>
+                <ion-item lines="none">
+                    <ion-button (click)="afficherInfosRGPD()" fill="clear">
+                        En savoir plus sur la gestion des données.
+                    </ion-button>
+                </ion-item>
                 <ion-button (click)="creerCompte(formInscription)"
                             color="primary"
                             expand="block">
                     Créer un compte
                 </ion-button>
             </form>
+            <ion-text *ngIf="!isFormulaireValide" class="ion-padding-top"
+                      color="danger"
+                      text-center>
+                <p class="text-error">
+                    Le formulaire n'est pas valide. Veuillez le corriger.
+                </p>
+            </ion-text>
+            <ion-text *ngIf="isErreurCreation" class="ion-padding-top"
+                      color="danger"
+                      text-center>
+                <p class="text-error">
+                    Une erreur est survenue dans la création du compte.
+                </p>
+            </ion-text>
         </ion-card-content>
     </ion-card>
+
+    <ng-container *ngIf="fonctionnalite==='rgpd'">
+        <app-rgpd-details></app-rgpd-details>
+        <ion-button (click)="afficherFormulaire()" expand="block">
+            Retour au formulaire
+        </ion-button>
+    </ng-container>
+
+    <ng-container *ngIf="fonctionnalite==='affichageCompteCree'">
+        <ion-card>
+            <ion-card-header>
+                <h1>Inscription</h1>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-text color="success">
+                    <p>
+                        <ion-icon color="success" name="checkmark-circle">
+                        </ion-icon>
+                        Votre compte a bien été créé.
+                    </p>
+                </ion-text>
+            </ion-card-content>
+        </ion-card>
+        <ion-button (click)="redirigerVersPageConnexion()" expand="block">
+            Se connecter
+        </ion-button>
+    </ng-container>
 </ion-content>
