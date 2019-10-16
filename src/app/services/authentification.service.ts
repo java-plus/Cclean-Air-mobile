@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { UtilisateurAuthentification } from '../entities/utilisateur-authentification';
 import { tap, catchError, map } from 'rxjs/operators';
+import {ProfilService} from './profil.service';
 const URL_BACKEND = environment.backendUrl;
 
 /**
@@ -14,12 +15,18 @@ const URL_BACKEND = environment.backendUrl;
 })
 export class AuthentificationService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private profileService: ProfilService) {
+  }
+
+  isAuthentifie(): Observable<boolean> {
+    return this.profileService.visualiserProfil().pipe(
+        map(() => true, catchError(() => of(false))
+        ));
   }
 
   /**
    * Une requète est envoyée à l'application back, renvoie un observateur
-   * @param utilisateur
+   * @param utilisateur : UtilisateurAuthentification
    */
   authentifier(utilisateur: UtilisateurAuthentification): Observable<any> {
     const httpOptions = {

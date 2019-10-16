@@ -1,10 +1,12 @@
 import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
+import {ConnexionGuard} from './connexion-guard.service';
+import {AccueilPageModule} from './accueil/accueil.module';
 
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'accueil',
+        redirectTo: 'authentification',
         pathMatch: 'full'
     },
     {
@@ -13,10 +15,12 @@ const routes: Routes = [
     },
     {
         path: 'accueil',
+        canActivate: [ConnexionGuard],
         loadChildren: () => import('./accueil/accueil.module').then(m => m.AccueilPageModule)
     },
     {
         path: 'mon-profil',
+        canActivate: [ConnexionGuard],
         loadChildren: () => import('./mon-profil/mon-profil.module').then(m => m.MonProfilPageModule)
     },
     {
