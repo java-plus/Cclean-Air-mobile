@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import {Observable, Subject} from 'rxjs';
-import {tap} from 'rxjs/operators';
-import {HttpClient} from '@angular/common/http';
-import {DonneesLocalesDto} from '../entities/DonneesLocalesDto';
-import {environment} from '../../environments/environment';
+import { Observable, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { DonneesLocalesDto } from '../entities/DonneesLocalesDto';
+import { environment } from '../../environments/environment';
+import { DonneesLocalesHistorique } from '../entities/DonneesLocalesHistorique';
 const URL_BACKEND = environment.backendUrl;
 
 @Injectable({
@@ -33,11 +34,20 @@ export class CommuneService {
     const URL = URL_BACKEND + '/communes/' + codeInsee;
 
     return this.http.get<DonneesLocalesDto>(URL, { withCredentials: true })
-        .pipe(
-            tap(donnees => {
+      .pipe(
+        tap(donnees => {
 
-              this.subDonneesLocales.next(donnees);
-            })
-        );
+          this.subDonneesLocales.next(donnees);
+        })
+      );
+  }
+
+  afficherHistorique(codeInsee: string): Observable<DonneesLocalesHistorique> {
+
+
+    const URL = URL_BACKEND + '/communes/historique/' + codeInsee;
+
+    return this.http.get<DonneesLocalesHistorique>(URL, { withCredentials: true });
+
   }
 }

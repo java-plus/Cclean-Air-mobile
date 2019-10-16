@@ -1,7 +1,9 @@
-import {NgModule} from '@angular/core';
-import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
+
+import { NgModule } from '@angular/core';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+
     {
         path: '',
         redirectTo: 'accueil',
@@ -22,14 +24,30 @@ const routes: Routes = [
     {
         path: 'authentification',
         loadChildren: () => import('./authentification/authentification.module').then(m => m.AuthentificationPageModule)
+    },
+    {
+        path: 'indicateurs',
+        loadChildren: () => import('./visualiser-indicateurs/visualiser-indicateurs.module').then(m => m.VisualiserIndicateursPageModule)
+    },
+    {
+        path: 'indicateurs/creer',
+        loadChildren: () => import('./creer-indicateurs/creer-indicateurs.module').then(m => m.CreerIndicateursPageModule)
+    },
+    {
+        path: 'indicateurs/:codeInsee',
+        loadChildren: () => import('./details-indicateurs/details-indicateurs.module').then(m => m.DetailsIndicateursPageModule)
+    },
+    {
+        path: 'communes/historique/:codeInsee',
+        loadChildren: () => import('./historique-commune/historique-commune.module').then(m => m.HistoriqueCommunePageModule)
     }
+
 ];
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})
+        RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
     ],
     exports: [RouterModule]
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule { }
