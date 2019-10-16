@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Cclean'Air</ion-title>
+  </ion-toolbar>
+  <ion-searchbar animated="true"  placeholder="Nom de la commune..." (ionInput)="getItems($event)"  ></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let item of items" (click)="submitSearch(item)">
+      {{item.nomCommune}}
+    </ion-item>
+  </ion-list>
+</ion-header>
+
+<ion-content>
+<ion-grid *ngIf="commune">
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="10">
+
+    </ion-col>
+  </ion-row>
+</ion-grid>
+  <div *ngIf="loading === true" id="spinner"></div>
+
+</ion-content>

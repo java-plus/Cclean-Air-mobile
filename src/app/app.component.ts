@@ -17,14 +17,14 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
-    },
-    {
       title: 'Mon profil',
       url: '/mon-profil',
       icon: 'person'
+    },
+    {
+      title: 'Recherche',
+      url: '/recherche',
+      icon: 'search'
     }
   ];
 

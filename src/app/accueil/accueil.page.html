@@ -3,7 +3,7 @@
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Accueil</ion-title>
+    <ion-title>Cclean'Air</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -37,8 +37,7 @@
     </ion-col>
   </ion-row>
 </ion-grid>
-  <div *ngIf="loading === true" style="min-height: 100%; position: absolute; top: 50%; left: 50%; margin-top: -50px;
-  margin-left: -100px;">
+  <div *ngIf="loading === true" id="spinner">
     <ion-img src="assets/loading.gif"></ion-img>
   </div>
 </ion-content>

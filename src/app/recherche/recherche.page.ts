@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import * as L from 'leaflet';
 import {CommuneCarte} from '../entities/CommuneCarte';
-import {CommuneService} from "../services/commune.service";
+import {CommuneService} from '../services/commune.service';
+import {CommuneRecherche} from '../entities/CommuneRecherche';
+import {ResultatRechercheCommune} from '../entities/ResultatRechercheCommune';
+
 
 @Component({
     selector: 'app-recherche',
@@ -11,16 +13,47 @@ import {CommuneService} from "../services/commune.service";
 export class RecherchePage implements OnInit {
 
     listeCommunes: Array<CommuneCarte> = [];
+    recherche: CommuneRecherche;
+    commune = new ResultatRechercheCommune();
+    items: Array<CommuneCarte> = [];
+
+
+
+    loading: boolean;
 
     constructor(private communeService: CommuneService) {
+
+    }
+
+
+    getItems(ev: any) {
+        // set val to the value of the searchbar
+        const val = ev.target.value;
+
+        // if the value is an empty string don't filter the items
+        if (val && val.trim() !== '') {
+            this.items = this.listeCommunes.filter((item) => {
+                return (item.nomCommune.toLowerCase().indexOf(val.toLowerCase()) > -1);
+            });
+        }
+    }
+
+    submitSearch(commune: CommuneCarte) {
+        console.log(commune);
     }
 
     ngOnInit() {
+
         /**
-         * Initialisation du fond de carte
+         * On initialise la liste des communes qui seront affichées lors de l'aide à la saisie
          */
-        const MAP_RECHERCHE = L.map('map_recherche').setView([47.218371, -1.553621], 11);
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(MAP_RECHERCHE);
+        this.communeService.recupererCommunesRecherche().subscribe((communes) => {
+            this.listeCommunes = communes;
+           // this.items = this.listeCommunes;
+
+        });
+
+
 
 
     }

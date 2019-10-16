@@ -18,7 +18,8 @@ const routes: Routes = [
     {path: 'accueil', loadChildren: './accueil/accueil.module#AccueilPageModule'},
     {path: 'recherche', loadChildren: './recherche/recherche.module#RecherchePageModule'},
     {path: 'mon-profil', loadChildren: './mon-profil/mon-profil.module#MonProfilPageModule'},
-    {path: 'authentification', loadChildren: './authentification/authentification.module#AuthentificationPageModule'}
+    {path: 'authentification', loadChildren: './authentification/authentification.module#AuthentificationPageModule'},
+  { path: 'recherche', loadChildren: './recherche/recherche.module#RecherchePageModule' }
 
 ];
 
