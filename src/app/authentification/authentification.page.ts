@@ -39,7 +39,7 @@ export class AuthentificationPage implements OnInit {
       return;
     }
     this.service.authentifier(this.utilisateur).subscribe(() => {
-      this.router.navigate(['/mon-profil']);
+      this.router.navigate(['/accueil']);
     }, () => {
       this.router.navigate(['/connexion']);
       this.statutErreur = true;
