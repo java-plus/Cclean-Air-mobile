@@ -1,8 +1,10 @@
 <ion-header>
   <ion-toolbar>
-    <ion-icon routerLink="/authentification" name="arrow-back"></ion-icon>
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-icon routerLink="/indicateurs" name="arrow-back"></ion-icon>
     </ion-buttons>
     <ion-title class="ion-text-center">
       Cclean'Air
@@ -110,9 +112,16 @@
             </ion-button>
           </ion-col>
           <ion-col size="6">
-            <ion-button class="button" shape="round" expand="block" (click)="modifierProfil()">Valider
+            <ion-button
+              *ngIf="nom.value != '' && prenom.value != '' && email.value != '' && commune.value != ''; else elseValidate"
+              class="button" shape="round" expand="block" (click)="modifierProfil()">Valider
               <ion-icon slot="end" name="checkmark-circle"></ion-icon>
             </ion-button>
+            <ng-template #elseValidate>
+              <ion-button disabled="true">Valider
+                <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+              </ion-button>
+            </ng-template>
           </ion-col>
           <ion-label *ngIf="error" color="danger">{{error}}</ion-label>
         </ion-row>
