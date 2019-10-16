@@ -22,6 +22,10 @@ const routes: Routes = [
     {
         path: 'authentification',
         loadChildren: () => import('./authentification/authentification.module').then(m => m.AuthentificationPageModule)
+    },
+    {
+        path: 'accueil-visiteur',
+        loadChildren: () => import('./accueil-visiteur/accueil-visiteur.module').then(m => m.AccueilVisiteurPageModule)
     }
 ];
 
