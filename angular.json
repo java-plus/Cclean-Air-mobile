@@ -29,15 +29,21 @@
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
-              }
+              },
+              "src/_redirects"
             ],
             "styles": [
+
               {
                 "input": "src/theme/variables.scss"
               },
               {
                 "input": "src/global.scss"
+              },
+              {
+                "input": "./node_modules/leaflet/dist/leaflet.css"
               }
+
             ],
             "scripts": []
           },
@@ -110,7 +116,13 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/leaflet/dist/images",
+                "output": "leaflet/"
               }
+
             ]
           },
           "configurations": {
@@ -128,7 +140,9 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "e2e": {
