@@ -25,6 +25,8 @@ export class DetailsIndicateursPage implements OnInit {
 
   erreur: string;
 
+  affichageErreur = false;
+
   icon: string;
 
   constructor(private route: ActivatedRoute, private communeService: CommuneService) { this.codeInsee = route.snapshot.paramMap.get('codeInsee'); }
@@ -53,11 +55,15 @@ export class DetailsIndicateursPage implements OnInit {
           }
         }, err => {
           this.erreur = err.error;
+          this.affichageErreur = true;
 
         }
       );
 
 
+      if (this.donneesLocales === undefined || this.donneesLocales === null) {
+        this.affichageErreur = true;
+      }
 
     });
   }

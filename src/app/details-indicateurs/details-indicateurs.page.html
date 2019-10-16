@@ -12,7 +12,7 @@
 
 <ion-content>
 
-  <ng-container *ngIf="erreur == null">
+  <ng-container *ngIf="!affichageErreur">
     <ion-toolbar>
       <ion-title class="ion-text-center">{{donneesLocales.commune.nom}}</ion-title>
       <ion-button routerLink="/communes/historique/{{codeInsee}}" slot="end" size="small">
@@ -74,14 +74,17 @@
     </ion-list>
   </ng-container>
 
-  <ng-container *ngIf="erreur != null">
+  <ng-container *ngIf="affichageErreur">
     <ion-toolbar>
       <ion-title class="ion-text-center">Données de l'indicateur</ion-title>
     </ion-toolbar>
 
     <ion-toolbar>
-      <ion-text color="danger">
+      <ion-text color="danger" *ngIf="erreur != null">
         <p class="ion-text-center">{{erreur}}</p>
+      </ion-text>
+      <ion-text color="danger" *ngIf="erreur == null">
+        <p class="ion-text-center">Une erreur est survenue, merci de réessayer ultérieurement</p>
       </ion-text>
       <ion-button expand="block">
         <ion-label>Retour</ion-label>
