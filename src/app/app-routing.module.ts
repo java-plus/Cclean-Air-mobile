@@ -8,16 +8,21 @@ const routes: Routes = [
         pathMatch: 'full'
     },
     {
-        path: 'home',
-        loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+        path: 'inscription',
+        loadChildren: () => import('./inscription/inscription.module').then(m => m.InscriptionPageModule)
     },
     {
-        path: 'list',
-        loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
+        path: 'accueil',
+        loadChildren: () => import('./accueil/accueil.module').then(m => m.AccueilPageModule)
     },
-    {path: 'accueil', loadChildren: './accueil/accueil.module#AccueilPageModule'},
-    {path: 'mon-profil', loadChildren: './mon-profil/mon-profil.module#MonProfilPageModule'},
-    {path: 'authentification', loadChildren: './authentification/authentification.module#AuthentificationPageModule'}
+    {
+        path: 'mon-profil',
+        loadChildren: () => import('./mon-profil/mon-profil.module').then(m => m.MonProfilPageModule)
+    },
+    {
+        path: 'authentification',
+        loadChildren: () => import('./authentification/authentification.module').then(m => m.AuthentificationPageModule)
+    }
 ];
 
 @NgModule({
