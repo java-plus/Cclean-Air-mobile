@@ -1,9 +1,24 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>recherche</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Recherche</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center ion-margin-vertical">
+      <ion-col class="ion-text-center">
+        <h3>Choix de la commune</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="10">
+        <div id="map_recherche"></div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>
