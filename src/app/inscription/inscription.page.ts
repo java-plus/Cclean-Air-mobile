@@ -1,9 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
 import {UtilisateurInscription} from '../entities/utilisateur-inscription';
 import {NgForm} from '@angular/forms';
 import {InscriptionService} from './inscription.service';
 import {Router} from '@angular/router';
+import {Commune} from '../entities/commune';
+import {CommuneService} from '../services/commune.service';
 
 /**
  * Page gérant l'affiche du formulaire d'inscription et les informations sur le
@@ -14,7 +16,7 @@ import {Router} from '@angular/router';
     templateUrl: './inscription.page.html',
     styleUrls: ['./inscription.page.scss'],
 })
-export class InscriptionPage {
+export class InscriptionPage implements OnInit {
 
     champsInvalideMsg = 'Champ invalide.';
     motDePasseDeConfirmation: string;
@@ -23,17 +25,21 @@ export class InscriptionPage {
         null, null, false);
     isErreurCreation = false;
     isFormulaireValide = true;
+    isErreurRecuperationCommunes: boolean;
     isRGPDCoche: boolean;
     fonctionnalite = 'create';
+    listeCommunes: Commune[];
 
     /**
      * Constructeur
      * @param inscriptionService : InscriptionService le service gérant les
      * inscriptions
      * @param router : Router
+     * @param communeService : CommuneService
      */
     constructor(private inscriptionService: InscriptionService,
-                private router: Router) {
+                private router: Router,
+                private communeService: CommuneService) {
     }
 
     /**
@@ -81,6 +87,17 @@ export class InscriptionPage {
      */
     redirigerVersPageConnexion(): void {
         this.router.navigate(['/authentification']);
+    }
+
+    ngOnInit(): void {
+        this.communeService.recupererCommunes()
+            .subscribe(
+                liste => {
+                    this.isErreurRecuperationCommunes = false;
+                    this.listeCommunes = liste;
+                },
+                () => this.isErreurRecuperationCommunes = true
+            );
     }
 
 }
