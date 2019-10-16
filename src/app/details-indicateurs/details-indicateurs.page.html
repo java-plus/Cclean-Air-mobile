@@ -12,19 +12,15 @@
 
 <ion-content>
 
-  <ion-grid>
-    <ion-row>
-      <ion-toolbar class="ion-text-center">
-        <strong>Résultats pour la commune {{donneesLocales.commune.nom}}</strong>
+  <ion-toolbar>
+    <ion-title>{{donneesLocales.commune.nom}}</ion-title>
+  </ion-toolbar>
 
-      </ion-toolbar>
-    </ion-row>
-    <ion-row>
-      <ion-toolbar class="ion-text-center">
-        Le {{donneesLocales.date | date:'dd/MM/yyyy à HH:mm'}}
-      </ion-toolbar>
-    </ion-row>
-  </ion-grid>
+
+  <ion-toolbar class="ion-text-center">
+    Le {{donneesLocales.date | date:'dd/MM/yyyy à HH:mm'}}
+  </ion-toolbar>
+
 
   <ion-list>
     <ion-list-header>
