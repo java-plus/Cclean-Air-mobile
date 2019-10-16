@@ -36,7 +36,12 @@ const routes: Routes = [
     {
         path: 'indicateurs/:codeInsee',
         loadChildren: () => import('./details-indicateurs/details-indicateurs.module').then(m => m.DetailsIndicateursPageModule)
+    },
+    {
+        path: 'communes/historique/:codeInsee',
+        loadChildren: () => import('./historique-commune/historique-commune.module').then(m => m.HistoriqueCommunePageModule)
     }
+
 ];
 
 @NgModule({

@@ -45,7 +45,7 @@ export class CreerIndicateursPage implements OnInit {
    * @param indicateurCreation
    */
   creerIndicateur(indicateurCreation: IndicateurCreation) {
-    console.log(indicateurCreation)
+
     if (indicateurCreation.alerte == null) {
       indicateurCreation.alerte = false;
     }
@@ -59,11 +59,5 @@ export class CreerIndicateursPage implements OnInit {
     );
   }
 
-  /**
-  * méthode qui permet de revenir à l'affichage des indicateurs
-  */
-  retourIndicateur() {
-
-  }
 
 }

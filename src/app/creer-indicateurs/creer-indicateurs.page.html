@@ -26,7 +26,7 @@
       </ion-select>
     </ion-item>
     <ion-item class="ion-margin-top " lines="none">
-      <ion-label>Recevoir une alerte pollution</ion-label>
+      <ion-label>Activer alertes pollution</ion-label>
       <ion-checkbox color="primary" slot="start" name="alerte" [(ngModel)]="indicateurCreation.alerte"
         #alerte="ngModel"></ion-checkbox>
     </ion-item>
@@ -34,7 +34,9 @@
       [disabled]="commune.pristine">
       Créer
     </ion-button>
-    <ion-text *ngIf="messageErreur != null" color="danger">{{messageErreur}}</ion-text>
+    <ion-text color="danger">
+      <p *ngIf="messageErreur != null" class="ion-text-center">{{messageErreur}}</p>
+    </ion-text>
   </ion-toolbar>
 
 </ion-content>
