@@ -11,15 +11,21 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
-  {
-    path: 'list',
-    loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
-  },
   { path: 'recherche', loadChildren: './recherche/recherche.module#RecherchePageModule' },
   { path: 'mon-profil', loadChildren: './mon-profil/mon-profil.module#MonProfilPageModule' },
   { path: 'authentification', loadChildren: './authentification/authentification.module#AuthentificationPageModule' },
-  { path: 'indicateurs', loadChildren: './visualiser-indicateurs/visualiser-indicateurs.module#VisualiserIndicateursPageModule' },
-  { path: 'indicateurs/creer', loadChildren: './creer-indicateurs/creer-indicateurs.module#CreerIndicateursPageModule' }
+  {
+    path: 'indicateurs',
+    loadChildren: () => import('./visualiser-indicateurs/visualiser-indicateurs.module').then(m => m.VisualiserIndicateursPageModule)
+  },
+  {
+    path: 'indicateurs/creer',
+    loadChildren: () => import('./creer-indicateurs/creer-indicateurs.module').then(m => m.CreerIndicateursPageModule)
+  },
+  {
+    path: 'indicateurs/:codeInsee',
+    loadChildren: () => import('./details-indicateurs/details-indicateurs.module').then(m => m.DetailsIndicateursPageModule)
+  }
 
 ];
 

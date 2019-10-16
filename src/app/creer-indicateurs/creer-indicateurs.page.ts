@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-creer-indicateurs',
   templateUrl: './creer-indicateurs.page.html',
-  styleUrls: ['./creer-indicateurs.page.scss'],
+  styles: [],
 })
 export class CreerIndicateursPage implements OnInit {
 

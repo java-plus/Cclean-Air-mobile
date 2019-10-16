@@ -5,9 +5,9 @@ import { IndicateursService } from 'src/app/services/indicateursService';
 @Component({
   selector: 'app-visualiser-indicateurs',
   templateUrl: './visualiser-indicateurs.page.html',
-  styleUrls: ['./visualiser-indicateurs.page.scss'],
+  styles: [],
 })
-export class VisualiserIndicateursPage implements OnInit {
+export class VisualiserIndicateursPage {
 
   listeIndicateurs: CommuneIndicateur[];
 
@@ -26,7 +26,7 @@ export class VisualiserIndicateursPage implements OnInit {
   /**
    * A l'initialisation de la page, la liste des indicateurs se met à jour
    */
-  ngOnInit() {
+  ionViewWillEnter() {
     this.indicateursService.getListeIndicateurs()
       .subscribe(
 
