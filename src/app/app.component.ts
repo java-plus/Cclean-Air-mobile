@@ -17,6 +17,11 @@ export class AppComponent {
       icon: 'home'
     },
     {
+      title: 'Indicateurs',
+      url: '/indicateurs',
+      icon: 'speedometer'
+    },
+    {
       title: 'Mon profil',
       url: '/mon-profil',
       icon: 'person'
