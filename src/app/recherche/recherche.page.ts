@@ -65,6 +65,7 @@ export class RecherchePage implements OnInit {
                 });
         });
 
+
         /**
          * On initialise la liste des communes qui seront affichées lors de l'aide à la saisie
          */
