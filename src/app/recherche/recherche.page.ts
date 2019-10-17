@@ -41,6 +41,10 @@ export class RecherchePage implements OnInit {
                 return (item.nomCommune.toLowerCase().indexOf(val.toLowerCase()) > -1);
             });
         }
+
+        if (val === '') {
+            this.items = [];
+        }
     }
 
     submitSearch(commune: CommuneCarte) {
