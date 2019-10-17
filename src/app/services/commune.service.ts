@@ -1,15 +1,16 @@
-import {Injectable} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
-import {tap} from 'rxjs/operators';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {DonneesLocalesDto} from '../entities/DonneesLocalesDto';
-import {environment} from '../../environments/environment';
-import {DonneesLocalesHistorique} from '../entities/DonneesLocalesHistorique';
-import {Commune} from '../entities/commune';
 
-import {CommuneCarte} from '../entities/CommuneCarte';
-import {ResultatRechercheCommune} from '../entities/ResultatRechercheCommune';
-import {CommuneRecherche} from '../entities/CommuneRecherche';
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DonneesLocalesDto } from '../entities/DonneesLocalesDto';
+import { environment } from '../../environments/environment';
+import { DonneesLocalesHistorique } from '../entities/DonneesLocalesHistorique';
+import { Commune } from '../entities/commune';
+import { DonneesLocalesRecherchees } from '../entities/DonneesLocalesRecherchees';
+import { CommuneCarte } from '../entities/CommuneCarte';
+import { ResultatRechercheCommune } from '../entities/ResultatRechercheCommune';
+import { CommuneRecherche } from '../entities/CommuneRecherche';
 
 const URL_BACKEND = environment.backendUrl;
 
@@ -40,7 +41,7 @@ export class CommuneService {
 
         const URL = URL_BACKEND + '/communes/' + codeInsee;
 
-        return this.http.get<DonneesLocalesDto>(URL, {withCredentials: true})
+        return this.http.get<DonneesLocalesDto>(URL, { withCredentials: true })
             .pipe(
                 tap(donnees => {
 
@@ -64,19 +65,32 @@ export class CommuneService {
         return this.http.get<Commune[]>(URL_BACKEND.concat('/communes'), httpOptions);
     }
 
-    afficherHistorique(codeInsee: string): Observable<DonneesLocalesHistorique> {
 
-        const URL = URL_BACKEND + '/communes/historique/' + codeInsee;
+    /**
+     *méthode qui récupère l'objet à afficher pour l'historique
+     *
+     * @param {string} codeInsee
+     * @returns {Observable<DonneesLocalesHistorique>}
+     * @memberof CommuneService
+     */
+    afficherHistorique(codeInsee: string, donneesRecherchees: DonneesLocalesRecherchees): Observable<DonneesLocalesHistorique[]> {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                "Content-type": "application/json"
+            }),
+            withCredentials: true
+        };
 
-        return this.http.get<DonneesLocalesHistorique>(URL, {withCredentials: true});
+        const URL = URL_BACKEND + '/communes/historiques/' + codeInsee;
 
+        return this.http.post<DonneesLocalesHistorique[]>(URL, donneesRecherchees, httpOptions);
     }
 
     /**
      * Récupère les 10 communes disposant de données sur la qualité de l'air
      */
     recupererCommunesRecherche(): Observable<Array<CommuneCarte>> {
-        return this.http.get<Array<CommuneCarte>>(URL_BACKEND.concat('/donnees_carte'), {withCredentials: true});
+        return this.http.get<Array<CommuneCarte>>(URL_BACKEND.concat('/donnees_carte'), { withCredentials: true });
     }
 
     /**
@@ -99,5 +113,6 @@ export class CommuneService {
             alerte: commune.alerte
         }, options);
     }
+
 
 }

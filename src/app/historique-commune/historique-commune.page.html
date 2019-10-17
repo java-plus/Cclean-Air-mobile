@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-icon routerLink="/indicateurs" name="arrow-back"></ion-icon>
+    <ion-icon routerLink="/indicateurs/{{codeInsee}}" name="arrow-back"></ion-icon>
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -12,30 +12,74 @@
 
 <ion-content>
 
-  <ion-toolbar>
-    <ion-title>Historique de la commune {{donneesHistorique.communeDtoVisualisation.nom}}</ion-title>
-  </ion-toolbar>
+  <ng-container *ngIf="affichageFormulaire">
 
-  <ion-list>
-    <ion-list-header>
-      Période
-    </ion-list-header>
-    <ion-item>
-      <ion-label>Date début</ion-label>
-      <ion-datetime value="{{myDate}}" placeholder="Select Date"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label>Heure de départ</ion-label>
-      <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="2019-10-16T00:00Z"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label>Date de fin</ion-label>
-      <ion-datetime value="{{myDate}}" placeholder="Select Date"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label>Heure de Fin</ion-label>
-      <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="2019-10-16T00:00Z"></ion-datetime>
-    </ion-item>
+    <ion-toolbar>
+      <ion-title>Historique de la commune :</ion-title>
 
-  </ion-list>
+    </ion-toolbar>
+    <ion-toolbar class="ion-margin-bottom">
+      <ion-title>{{donneesLocales.commune.nom}}</ion-title>
+    </ion-toolbar>
+    <form #formulaire="ngForm" name="formulaire">
+      <ion-list>
+        <ion-list-header>
+          Période
+        </ion-list-header>
+        <ion-item>
+          <ion-label>Date début</ion-label>
+          <ion-datetime value="{{myDate}}" #dateDebut="ngModel" name="dateDebut"
+            [(ngModel)]="donneesRecherchees.dateDebut" [max]="myDate" ngDefaultControl>
+          </ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>Date de fin</ion-label>
+          <ion-datetime value="{{myDate}}" #dateFin="ngModel" name="dateFin" [(ngModel)]="donneesRecherchees.dateFin"
+            [max]="myDate" ngDefaultControl>
+          </ion-datetime>
+        </ion-item>
+
+        <ion-list-header class="ion-margin-top">
+          Polluant
+        </ion-list-header>
+        <ion-item lines="none">
+          <ion-label>Polluant</ion-label>
+          <ion-select ok-text="Ok" cancel-text="Cancel" #polluant="ngModel" name="polluant"
+            [(ngModel)]="donneesRecherchees.polluant">
+            <ion-select-option *ngFor="let polluant of listePolluants" value="{{polluant}}" name="polluant"
+              ngDefaultControl>
+              {{polluant}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-button expand="block" (click)="rechercheHistorique()"
+          [disabled]="dateDebut.pristine || dateFin.pristine || polluant.pristine">Rechercher</ion-button>
+        <ion-text color="danger">
+          <p *ngIf="polluantVide" class="ion-text-center">Désolé, nous n'avons pas de données enregistrées pour ce
+            polluant sur cette commune</p>
+        </ion-text>
+        <ion-text color="danger">
+          <p *ngIf="erreur != null" class="ion-text-center">{{erreur}}</p>
+        </ion-text>
+      </ion-list>
+    </form>
+  </ng-container>
+
+
+  <div [style.visibility]="!affichageFormulaire ? 'visible' : 'hidden'">
+
+
+    <ion-card>
+      <ion-card-header class="ion-text-center" style="white-space: normal;">
+        {{donneesLocales.commune.nom}} - {{donneesRecherchees.polluant}} en {{unite}}
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #lineCanvas></canvas>
+
+        <ion-button expand="block" (click)="retourFormulaire()">Retour formulaire</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
 </ion-content>

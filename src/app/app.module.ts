@@ -10,6 +10,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 
 
 
@@ -20,12 +23,15 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
         BrowserModule,
         IonicModule.forRoot(),
         AppRoutingModule,
-        HttpClientModule
+        HttpClientModule,
+        FormsModule
+
     ],
     providers: [
         StatusBar,
         SplashScreen,
         HttpClient,
+        DatePipe,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
 
     ],
