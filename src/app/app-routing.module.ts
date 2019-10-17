@@ -26,6 +26,8 @@ const routes: Routes = [
         path: 'authentification',
         loadChildren: () => import('./authentification/authentification.module').then(m => m.AuthentificationPageModule)
     },
+
+    { path: 'recherche', loadChildren: './recherche/recherche.module#RecherchePageModule' },
     {
         path: 'accueil-visiteur',
         loadChildren: () => import('./accueil-visiteur/accueil-visiteur.module').then(m => m.AccueilVisiteurPageModule)

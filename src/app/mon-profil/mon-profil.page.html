@@ -3,14 +3,19 @@
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">Cclean'Air</ion-title>
+    <ion-buttons slot="start">
+      <ion-icon size="large" routerLink="/accueil" name="arrow-back"></ion-icon>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      Cclean'Air
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="modif==false">
-  <ion-row class="ion-padding ion-text-center">
+<ion-content *ngIf="modif==false && modifMdp==false && suppression==false && message==false">
+  <ion-header no-border class="ion-padding ion-margin-top ion-text-center">
     <ion-title>Mon Profil</ion-title>
-  </ion-row>
+  </ion-header>
   <ion-row class="ion-padding">
     <ion-grid>
       <ion-row>
@@ -18,7 +23,7 @@
           Nom :
         </ion-col>
         <ion-col size="6">
-          {{utilisateur.nom}}
+          {{utilisateurInitial.nom}}
         </ion-col>
       </ion-row>
       <ion-row>
@@ -26,7 +31,7 @@
           Prénom :
         </ion-col>
         <ion-col size="6">
-          {{utilisateur.prenom}}
+          {{utilisateurInitial.prenom}}
         </ion-col>
       </ion-row>
       <ion-row>
@@ -34,7 +39,7 @@
           Adresse mail :
         </ion-col>
         <ion-col>
-          {{utilisateur.email}}
+          {{utilisateurInitial.email}}
         </ion-col>
       </ion-row>
       <ion-row class="ion-padding-bottom">
@@ -42,27 +47,28 @@
           Commune :
         </ion-col>
         <ion-col>
-          {{utilisateur.commune}}
+          {{utilisateurInitial.commune}}
         </ion-col>
       </ion-row>
       <ion-row class="ion-padding-top">
         <ion-col size="12">
-          <ion-button class="button" shape="round" expand="block" (click)="modifierProfil()">Modifier compte
+          <ion-button class="button" shape="round" expand="block" (click)="modif = true">Modifier compte
             <ion-icon slot="end" name="clipboard"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12">
-          <ion-button class="button" shape="round" expand="block">Modifier mot de passe
-            <ion-icon name="finger-print"></ion-icon>
+          <ion-button class="button" shape="round" expand="block" (click)="modifMdp = true">Modifier mot de passe
+            <ion-icon slot="end" name="finger-print"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12">
-          <ion-button class="button" shape="round" expand="block">Voir mes alertes
-            <ion-icon name="information-circle-outline"></ion-icon>
+          <ion-button class="button" shape="round" expand="block" color="danger" (click)="suppression = true">Supprimer
+            compte
+            <ion-icon slot="end" name="close-circle"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
@@ -70,3 +76,145 @@
   </ion-row>
 </ion-content>
 
+<ion-content *ngIf="modif==true && suppression==false">
+  <ion-header no-border class="ion-padding ion-margin-top ion-text-center">
+    <ion-title>Mon Profil</ion-title>
+  </ion-header>
+  <ion-grid class="ion-padding-horizontal">
+    <ion-row class="ion-padding-left">
+      <ion-col size="10">
+        <form #formAuthentification="ngForm">
+          <ion-item>
+            <ion-label position="floating">Nom</ion-label>
+            <ion-input type="text" class="w100" required #nom="ngModel" [(ngModel)]="utilisateurTemp.nom" name="nom"
+              id="nom"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Prénom</ion-label>
+            <ion-input type="text" class="w100" required #prenom="ngModel" [(ngModel)]="utilisateurTemp.prenom"
+              name="prenom" id="prenom"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" class="w-100" required #email="ngModel" [(ngModel)]="utilisateurTemp.email"
+              name="email" id="email"
+              pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$">
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Commune</ion-label>
+            <ion-input type="text" class="w-100" required #commune="ngModel" [(ngModel)]="utilisateurTemp.commune"
+              name="commune" id="commune"></ion-input>
+          </ion-item>
+        </form>
+        <ion-row class="ion-padding-top">
+          <ion-col size="6">
+            <ion-button class="button" shape="round" expand="block" (click)="modif = false">Annuler
+              <ion-icon slot="end" name="close-circle"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button
+              *ngIf="nom.value != '' && prenom.value != '' && email.value != '' && email.valid && commune.value != ''; else elseValidate"
+              class="button" shape="round" expand="block" (click)="modifierProfil()">Valider
+              <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+            </ion-button>
+            <ng-template #elseValidate>
+              <ion-button disabled="true">Valider
+                <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+              </ion-button>
+            </ng-template>
+          </ion-col>
+          <ion-label *ngIf="error" color="danger">{{error}}</ion-label>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-content *ngIf="modifMdp==true && suppression==false">
+  <ion-header no-border class="ion-padding ion-margin-top ion-text-center">
+    <ion-title>Mon Profil</ion-title>
+  </ion-header>
+  <ion-grid class="ion-padding-horizontal">
+    <ion-row class="ion-padding-left">
+      <ion-col size="10">
+        <form #formAuthentification="ngForm">
+          <ion-item>
+            <ion-label position="floating">Mot de passe</ion-label>
+            <ion-input type="password" class="w100" required #password="ngModel"
+              [(ngModel)]="utilisateurTemp.motDePasseActuel" name="password" id="password"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Nouveau mot de passe</ion-label>
+            <ion-input *ngIf="password.pristine == false && password.value !=''; else elsePass" type="password"
+              class="w100" required #newPassword="ngModel" [(ngModel)]="utilisateurTemp.motDePasseNouveau"
+              name="newPassword" id="newPassword"></ion-input>
+            <ng-template #elsePass>
+              <ion-input disabled="true"></ion-input>
+            </ng-template>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Valider mot de passe</ion-label>
+            <ion-input *ngIf="password.pristine == false && password.value !=''; else elsePassVal" type="password"
+              class="w-100" required #newPasswordValidation="ngModel"
+              [(ngModel)]="utilisateurTemp.getMotDePasseNouveauValidation" name="newPasswordValidation"
+              id="newPasswordValidation"></ion-input>
+            <ng-template #elsePassVal>
+              <ion-input disabled="true"></ion-input>
+            </ng-template>
+          </ion-item>
+        </form>
+        <ion-row class="ion-padding-top">
+          <ion-col size="6">
+            <ion-button class="button" shape="round" expand="block" (click)="modifMdp = false">Annuler
+              <ion-icon slot="end" name="close-circle"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button class="button" shape="round" expand="block" (click)="modifierProfil()">Valider
+              <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-label *ngIf="error" color="danger">{{error}}</ion-label>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-content *ngIf="suppression==true">
+  <ion-title class="ion-padding-top ion-text-center" justify-content-center align-items-center style="height: 30%; flex-direction: column">Êtes-vous sûr de vouloir<br>supprimer votre compte
+    ?<br>
+    <ion-icon class="ion-padding-top" name="alert" size="large" color="danger"></ion-icon>
+  </ion-title>
+  <ion-row>
+    <ion-col size="3"></ion-col>
+    <ion-col size="6">
+      <ion-button class="button" shape="round" expand="block" (click)="validerSuppression()">Valider
+        <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="3"></ion-col>
+    <ion-col size="6">
+      <ion-button class="button" shape="round" expand="block" (click)="suppression=false">Annuler
+        <ion-icon slot="end" name="close-circle"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+<ion-content *ngIf="message==true">
+  <ion-title class="ion-padding ion-text-center">Votre compte a bien été modifié<br>
+    <ion-icon class="ion-padding-top" name="checkbox" size="large" color="success"></ion-icon>
+  </ion-title>
+  <ion-row>
+    <ion-col size="3"></ion-col>
+    <ion-col size="6">
+      <ion-button class="button" shape="round" expand="block" (click)="message=false">Ok
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>

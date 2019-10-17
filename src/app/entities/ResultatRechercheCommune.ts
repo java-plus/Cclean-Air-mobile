@@ -4,7 +4,7 @@ import {ConditionMeteo} from './ConditionMeteo';
 export class ResultatRechercheCommune {
 
   public codeInsee: string;
-  public nomCommune: string;
+  public nom: string;
   public polluants: Array<PolluantDto>;
   public nbHabitants: number;
   public meteo: ConditionMeteo;

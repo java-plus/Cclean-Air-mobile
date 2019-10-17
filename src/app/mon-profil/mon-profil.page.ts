@@ -10,10 +10,13 @@ import { ProfilService } from '../services/profil.service';
 })
 export class MonProfilPage implements OnInit {
 
-  utilisateur = new UtilisateurProfil('', '', '', '', [], null, '', '', '');
+  utilisateurInitial = new UtilisateurProfil('', '', '', '', [], null, '', '', '');
+  utilisateurTemp = new UtilisateurProfil('', '', '', '', [], null, '', '', '');
   error: string;
   modif: boolean = false;
+  modifMdp: boolean = false;
   suppression: boolean = false;
+  message: boolean = false;
 
   /**
    * Constructeur
@@ -26,14 +29,34 @@ export class MonProfilPage implements OnInit {
    * Permet d'afficher les données de l'utilisateur à l'initialisation de la page Profil.
    */
   ngOnInit() {
-    this.profilService.visualiserProfil().subscribe(utilisateurCo => this.utilisateur = utilisateurCo);
+    this.profilService.visualiserProfil().subscribe(utilisateurCo => {
+      this.utilisateurInitial = utilisateurCo.clone();
+      this.utilisateurTemp = utilisateurCo.clone();
+    });
   }
 
   /**
    * Permet de modifier les informations de l'utilisateur connecté.
    */
   modifierProfil() {
-    this.profilService.modifierProfil(this.utilisateur).subscribe(result => { this.modif = true; }, (err: any) => {
+    this.profilService.modifierProfil(this.utilisateurTemp).subscribe(
+      result => {
+        this.utilisateurInitial = this.utilisateurTemp;
+        this.modif = false;
+        this.modifMdp = false;
+        this.suppression = false;
+        this.message = true;
+        this.error = '';
+      }, (err: any) => {
+        this.error = err.error;
+      });
+  }
+
+  validerSuppression(): void {
+    this.profilService.supprimerProfil(this.utilisateurInitial.email).subscribe(result => {
+      this.router.navigate(['/accueil-visiteur']);
+      this.suppression = false;
+    }, (err: any) => {
       this.error = err.error;
     });
   }
