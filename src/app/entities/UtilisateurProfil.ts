@@ -37,4 +37,9 @@ export class UtilisateurProfil {
     this.motDePasseNouveau = motDePasseNouveau;
     this.getMotDePasseNouveauValidation = getMotDePasseNouveauValidation;
   }
+
+  clone() {
+    return new UtilisateurProfil(this.nom, this.prenom, this.email, this.commune,
+    this.listeIndicateur, this.statutNotification, this.motDePasseActuel, this.motDePasseNouveau, this.getMotDePasseNouveauValidation);
+  }
 }
