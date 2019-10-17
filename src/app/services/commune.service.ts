@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DonneesLocalesDto } from '../entities/DonneesLocalesDto';
 import { environment } from '../../environments/environment';
 import { DonneesLocalesHistorique } from '../entities/DonneesLocalesHistorique';
+import { DonneesLocalesRecherchees } from '../entities/DonneesLocalesRecherchees';
 const URL_BACKEND = environment.backendUrl;
 
 @Injectable({
@@ -42,12 +43,24 @@ export class CommuneService {
       );
   }
 
-  afficherHistorique(codeInsee: string): Observable<DonneesLocalesHistorique> {
+  /**
+   *méthode qui récupère l'objet à afficher pour l'historique
+   *
+   * @param {string} codeInsee
+   * @returns {Observable<DonneesLocalesHistorique>}
+   * @memberof CommuneService
+   */
+  afficherHistorique(codeInsee: string, donneesRecherchees: DonneesLocalesRecherchees): Observable<DonneesLocalesHistorique[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-type": "application/json"
+      }),
+      withCredentials: true
+    };
 
+    const URL = URL_BACKEND + '/communes/historiques/' + codeInsee;
 
-    const URL = URL_BACKEND + '/communes/historique/' + codeInsee;
-
-    return this.http.get<DonneesLocalesHistorique>(URL, { withCredentials: true });
+    return this.http.post<DonneesLocalesHistorique[]>(URL, donneesRecherchees, httpOptions);
 
   }
 }
