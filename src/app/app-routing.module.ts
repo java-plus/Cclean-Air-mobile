@@ -5,7 +5,7 @@ import {ConnexionGuard} from './connexion-guard.service';
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'accueil',
+        redirectTo: 'accueil-visiteur',
         pathMatch: 'full'
     },
     {
@@ -27,14 +27,19 @@ const routes: Routes = [
         loadChildren: () => import('./authentification/authentification.module').then(m => m.AuthentificationPageModule)
     },
 
-    { path: 'recherche', loadChildren: './recherche/recherche.module#RecherchePageModule' },
+    {
+        path: 'recherche',
+        loadChildren: () => import('./recherche/recherche.module').then(m => m.RecherchePageModule),
+        canActivate: [ConnexionGuard]
+    },
     {
         path: 'accueil-visiteur',
         loadChildren: () => import('./accueil-visiteur/accueil-visiteur.module').then(m => m.AccueilVisiteurPageModule)
     },
     {
         path: 'indicateurs',
-        loadChildren: () => import('./visualiser-indicateurs/visualiser-indicateurs.module').then(m => m.VisualiserIndicateursPageModule)
+        loadChildren: () => import('./visualiser-indicateurs/visualiser-indicateurs.module').then(m => m.VisualiserIndicateursPageModule),
+        canActivate: [ConnexionGuard]
     },
     {
         path: 'indicateurs/creer',
@@ -42,11 +47,13 @@ const routes: Routes = [
     },
     {
         path: 'indicateurs/:codeInsee',
-        loadChildren: () => import('./details-indicateurs/details-indicateurs.module').then(m => m.DetailsIndicateursPageModule)
+        loadChildren: () => import('./details-indicateurs/details-indicateurs.module').then(m => m.DetailsIndicateursPageModule),
+        canActivate: [ConnexionGuard]
     },
     {
         path: 'communes/historique/:codeInsee',
-        loadChildren: () => import('./historique-commune/historique-commune.module').then(m => m.HistoriqueCommunePageModule)
+        loadChildren: () => import('./historique-commune/historique-commune.module').then(m => m.HistoriqueCommunePageModule),
+        canActivate: [ConnexionGuard]
     }
 ];
 
