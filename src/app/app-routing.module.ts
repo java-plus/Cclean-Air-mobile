@@ -5,7 +5,7 @@ import {ConnexionGuard} from './connexion-guard.service';
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'authentification',
+        redirectTo: 'accueil',
         pathMatch: 'full'
     },
     {
@@ -25,6 +25,26 @@ const routes: Routes = [
     {
         path: 'authentification',
         loadChildren: () => import('./authentification/authentification.module').then(m => m.AuthentificationPageModule)
+    },
+    {
+        path: 'accueil-visiteur',
+        loadChildren: () => import('./accueil-visiteur/accueil-visiteur.module').then(m => m.AccueilVisiteurPageModule)
+    },
+    {
+        path: 'indicateurs',
+        loadChildren: () => import('./visualiser-indicateurs/visualiser-indicateurs.module').then(m => m.VisualiserIndicateursPageModule)
+    },
+    {
+        path: 'indicateurs/creer',
+        loadChildren: () => import('./creer-indicateurs/creer-indicateurs.module').then(m => m.CreerIndicateursPageModule)
+    },
+    {
+        path: 'indicateurs/:codeInsee',
+        loadChildren: () => import('./details-indicateurs/details-indicateurs.module').then(m => m.DetailsIndicateursPageModule)
+    },
+    {
+        path: 'communes/historique/:codeInsee',
+        loadChildren: () => import('./historique-commune/historique-commune.module').then(m => m.HistoriqueCommunePageModule)
     }
 ];
 

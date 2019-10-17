@@ -1,9 +1,21 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>Cclean-Air</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button icon="arrow-back" text=""></ion-back-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">Cclean'Air</ion-title>
     </ion-toolbar>
 </ion-header>
-
+<ion-text *ngIf="isErreurRecuperationCommunes" class="ion-padding-top"
+          color="danger"
+          text-center>
+    <p class="text-error">
+        Une erreur est survenue dans la récupération des données.
+    </p>
+    <p class="text-error">
+        Merci de vérifier votre connexion ou de réessayer plus tard.
+    </p>
+</ion-text>
 <ion-content>
     <ion-card *ngIf="fonctionnalite === 'create'">
         <ion-card-header>
@@ -73,10 +85,21 @@
                     </ion-text>
                 </ion-item>
                 <ion-item>
-                    <ion-input
-                            [(ngModel)]="utilisateur.nomCommune"
-                            name="commune" placeholder="Commune" required>
-                    </ion-input>
+                    <ion-select [(ngModel)]="utilisateur.nomCommune"
+                                cancelText="Annuler" name="commune"
+                                okText="Ok" placeholder="Commune"
+                                required value="brown" class="ion-no-padding">
+                        <ion-select-option
+                                *ngFor="let commune of listeCommunes"
+                                ngDefaultControl value="{{commune.nom}}">
+                            {{commune.nom}}
+                        </ion-select-option>
+                    </ion-select>
+
+                    <!--                    <ion-input
+                                                [(ngModel)]="utilisateur.nomCommune"
+                                                name="commune" placeholder="Commune" required>
+                                        </ion-input>-->
                 </ion-item>
                 <ion-item>
                     <ion-input
@@ -101,8 +124,8 @@
                     </ion-checkbox>
                     <ion-label text-wrap>
                         <ion-text color="medium">[Requis]</ion-text>
-                        J'accepte que Cclean-Air traite les données
-                        reccueillies dans ce formulaire.
+                        J'accepte que Cclean-Air reccueille et utilise les
+                        données de ce formulaire.
                     </ion-label>
                 </ion-item>
                 <ion-item *ngIf="((checkboxRGPD.dirty && !isRGPDCoche)

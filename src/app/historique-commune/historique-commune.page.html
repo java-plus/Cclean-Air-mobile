@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon routerLink="/indicateurs" name="arrow-back"></ion-icon>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      Cclean'Air
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-toolbar>
+    <ion-title>Historique de la commune {{donneesHistorique.communeDtoVisualisation.nom}}</ion-title>
+  </ion-toolbar>
+
+  <ion-list>
+    <ion-list-header>
+      Période
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Date début</ion-label>
+      <ion-datetime value="{{myDate}}" placeholder="Select Date"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Heure de départ</ion-label>
+      <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="2019-10-16T00:00Z"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Date de fin</ion-label>
+      <ion-datetime value="{{myDate}}" placeholder="Select Date"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Heure de Fin</ion-label>
+      <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="2019-10-16T00:00Z"></ion-datetime>
+    </ion-item>
+
+  </ion-list>
+</ion-content>
