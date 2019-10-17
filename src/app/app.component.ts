@@ -25,6 +25,11 @@ export class AppComponent {
       title: 'Mon profil',
       url: '/mon-profil',
       icon: 'person'
+    },
+    {
+      title: 'Recherche',
+      url: '/recherche',
+      icon: 'search'
     }
   ];
 

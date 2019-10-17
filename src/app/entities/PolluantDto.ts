@@ -1,4 +1,5 @@
 export class PolluantDto {
-  public nomPolluant: string;
+  public nom: string;
   public valeur: number;
+  public unite: string;
 }
