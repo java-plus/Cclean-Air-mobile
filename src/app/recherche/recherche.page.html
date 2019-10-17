@@ -1,26 +1,64 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="end">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Cclean'Air</ion-title>
-  </ion-toolbar>
-  <ion-searchbar animated="true"  placeholder="Nom de la commune..." (ionInput)="getItems($event)"  ></ion-searchbar>
-  <ion-list>
-    <ion-item *ngFor="let item of items" (click)="submitSearch(item)">
-      {{item.nomCommune}}
-    </ion-item>
-  </ion-list>
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Cclean'Air</ion-title>
+    </ion-toolbar>
+    <ion-searchbar animated="true" placeholder="Nom de la commune..." (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-list>
+        <ion-item *ngFor="let item of items" (click)="submitSearch(item)">
+            {{item.nomCommune}}
+        </ion-item>
+    </ion-list>
 </ion-header>
 
 <ion-content>
-<ion-grid *ngIf="commune">
-  <ion-row class="ion-justify-content-center">
-    <ion-col size="10">
+    <ion-grid *ngIf="resultatRecherche">
+        <ion-row class="ion-justify-content-center">
+            <ion-col size="10" class="ion-text-center">
+                <ion-text color="secondary">
+                    <h2>{{resultatRecherche.nom}}</h2>
+                </ion-text>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid *ngIf="resultatRecherche">
+        <ion-card>
+            <ion-card-subtitle class="ion-text-center ion-margin-top">
+                Détails de la commune :
+            </ion-card-subtitle>
+            <ion-card-content>
+                <p>Il fait actuellement {{resultatRecherche.meteo.temperature}} degrés à {{resultatRecherche.nom}}.</p>
+                <p>Humidité : {{resultatRecherche.meteo.humidite}}%</p>
+                <p>Ensoleillement : {{resultatRecherche.meteo.ensoleillement}}%</p>
+                <p>Habitants : {{resultatRecherche.nbHabitants}}</p>
+            </ion-card-content>
 
-    </ion-col>
-  </ion-row>
-</ion-grid>
-  <div *ngIf="loading === true" id="spinner"></div>
+        </ion-card>
+    </ion-grid>
+
+    <ion-grid *ngIf="resultatRecherche">
+        <ion-card>
+            <ion-card-subtitle class="ion-text-center ion-margin-top">
+                Informations pollution :
+            </ion-card-subtitle>
+            <ion-card-content>
+                <ion-text color="success" *ngIf="!resultatRecherche.niveauAlerte">
+                    <p>Aucun alerte pollution</p>
+                </ion-text>
+              <ion-text color="danger" *ngIf="resultatRecherche.niveauAlerte">
+                <p>Alerte Pollution : {{resultatRecherche.niveauAlerte.nom}}</p>
+              </ion-text>
+              <ion-row>
+              <p *ngFor="let polluant of resultatRecherche.polluants">
+                {{polluant.nom}} : {{polluant.valeur}} {{polluant.unite}}
+              </p>
+              </ion-row>
+            </ion-card-content>
+
+        </ion-card>
+    </ion-grid>
+    <div *ngIf="loading === true" id="spinner"></div>
 
 </ion-content>

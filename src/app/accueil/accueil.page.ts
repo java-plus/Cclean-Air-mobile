@@ -5,7 +5,8 @@ import {PositionService} from './position.service';
 import {CommuneCarte} from '../entities/CommuneCarte';
 import {flatMap} from 'rxjs/operators';
 import {fromPromise} from 'rxjs/internal-compatibility';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {CommuneRecherche} from "../entities/CommuneRecherche";
 
 
 const {Geolocation} = Plugins;
@@ -27,7 +28,8 @@ export class AccueilPage implements OnInit {
      */
     loading: boolean;
 
-    communeRecherche: CommuneCarte;
+    communeRecupere: CommuneCarte;
+    communeRecherche: CommuneRecherche;
 
     constructor(private positionService: PositionService, private router: Router) {
     }
@@ -44,11 +46,21 @@ export class AccueilPage implements OnInit {
                 flatMap(posInfos => this.positionService.recupererCommuneLaPlusProche(posInfos))
             )
             .subscribe(commune => {
-                    this.communeRecherche = commune;
+                    this.communeRecupere = commune;
                     this.loading = false;
-                    console.log(this.communeRecherche);
+                    this.router.navigate(['/recherche'], {
+                        queryParams: {
+                            codeInsee: this.communeRecupere.codeINSEE,
+                            nomCommune: this.communeRecupere.nomCommune,
+
+                        }
+                    });
                 },
                 () => this.loading = false);
+    }
+
+    rechercheDetaillee() {
+        this.router.navigate(['/recherche']);
     }
 
     ngOnInit() {
