@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-buttons slot="start">
-      <ion-icon routerLink="/accueil" name="arrow-back"></ion-icon>
+      <ion-icon size="large" routerLink="/accueil" name="arrow-back"></ion-icon>
     </ion-buttons>
     <ion-title class="ion-text-center">
       Cclean'Air
@@ -13,9 +13,9 @@
 </ion-header>
 
 <ion-content *ngIf="modif==false && modifMdp==false && suppression==false && message==false">
-  <ion-row class="ion-padding ion-text-center" style="height:15%">
+  <ion-header no-border class="ion-padding ion-margin-top ion-text-center">
     <ion-title>Mon Profil</ion-title>
-  </ion-row>
+  </ion-header>
   <ion-row class="ion-padding">
     <ion-grid>
       <ion-row>
@@ -77,11 +77,11 @@
 </ion-content>
 
 <ion-content *ngIf="modif==true && suppression==false">
-  <ion-row class="ion-padding ion-text-center" style="height: 15%;">
+  <ion-header no-border class="ion-padding ion-margin-top ion-text-center">
     <ion-title>Mon Profil</ion-title>
-  </ion-row>
-  <ion-grid class="ion-padding-horizontal" style="height: 10%">
-    <ion-row class="ion-padding-left" justify-content-center style="height: 100%; flex-direction: column">
+  </ion-header>
+  <ion-grid class="ion-padding-horizontal">
+    <ion-row class="ion-padding-left">
       <ion-col size="10">
         <form #formAuthentification="ngForm">
           <ion-item>
@@ -97,7 +97,9 @@
           <ion-item>
             <ion-label position="floating">Email</ion-label>
             <ion-input type="email" class="w-100" required #email="ngModel" [(ngModel)]="utilisateurTemp.email"
-              name="email" id="email"></ion-input>
+              name="email" id="email"
+              pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$">
+            </ion-input>
           </ion-item>
           <ion-item>
             <ion-label position="floating">Commune</ion-label>
@@ -113,7 +115,7 @@
           </ion-col>
           <ion-col size="6">
             <ion-button
-              *ngIf="nom.value != '' && prenom.value != '' && email.value != '' && commune.value != ''; else elseValidate"
+              *ngIf="nom.value != '' && prenom.value != '' && email.value != '' && email.valid && commune.value != ''; else elseValidate"
               class="button" shape="round" expand="block" (click)="modifierProfil()">Valider
               <ion-icon slot="end" name="checkmark-circle"></ion-icon>
             </ion-button>
@@ -131,11 +133,11 @@
 </ion-content>
 
 <ion-content *ngIf="modifMdp==true && suppression==false">
-  <ion-row class="ion-padding ion-text-center" style="height: 15%;">
+  <ion-header no-border class="ion-padding ion-margin-top ion-text-center">
     <ion-title>Mon Profil</ion-title>
-  </ion-row>
-  <ion-grid class="ion-padding-horizontal" style="height: 10%">
-    <ion-row class="ion-padding-left" justify-content-center style="height: 100%; flex-direction: column">
+  </ion-header>
+  <ion-grid class="ion-padding-horizontal">
+    <ion-row class="ion-padding-left">
       <ion-col size="10">
         <form #formAuthentification="ngForm">
           <ion-item>
@@ -182,7 +184,7 @@
 </ion-content>
 
 <ion-content *ngIf="suppression==true">
-  <ion-title class="ion-padding ion-text-center" style="height: 50%;">Êtes-vous sûr de vouloir<br>supprimer votre compte
+  <ion-title class="ion-padding-top ion-text-center" justify-content-center align-items-center style="height: 30%; flex-direction: column">Êtes-vous sûr de vouloir<br>supprimer votre compte
     ?<br>
     <ion-icon class="ion-padding-top" name="alert" size="large" color="danger"></ion-icon>
   </ion-title>
@@ -205,7 +207,7 @@
 </ion-content>
 
 <ion-content *ngIf="message==true">
-  <ion-title class="ion-padding ion-text-center" style="height: 50%;">Votre compte a bien été modifié<br>
+  <ion-title class="ion-padding ion-text-center">Votre compte a bien été modifié<br>
     <ion-icon class="ion-padding-top" name="checkbox" size="large" color="success"></ion-icon>
   </ion-title>
   <ion-row>
