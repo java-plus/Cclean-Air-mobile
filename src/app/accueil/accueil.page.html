@@ -33,29 +33,26 @@
             </ion-text>
         </ion-row>
         <ion-row class="ion-justify-content-center ion-margin-top">
-            <ion-col class="ion-text-center" size="10">
-                <ion-button (click)="rechercheParPosition()"
-                            class="ion-text-center"
-                            color="primary" expand="block">
+            <ion-col class="ion-text-center" size="12">
+                <ion-button (click)="rechercheParPosition()" class="ion-text-center" color="primary" expand="block">
                     Qualité de l'air pour ma position
+                    <ion-icon slot="end" name="compass"></ion-icon>
                 </ion-button>
             </ion-col>
         </ion-row>
         <ion-row class="ion-justify-content-center">
-            <ion-col class="ion-text-center" size="10">
-                <ion-button class="ion-text-center" color="primary"
-                            expand="block"
-                            routerLink="/indicateurs">
-                    <p>Mes indicateurs enregistrés</p>
+            <ion-col class="ion-text-center" size="12">
+                <ion-button class="ion-text-center" color="primary" expand="block" routerLink="/indicateurs">
+                    Mes indicateurs enregistrés
+                    <ion-icon slot="end" name="filing"></ion-icon>
                 </ion-button>
             </ion-col>
         </ion-row>
         <ion-row class="ion-justify-content-center">
-            <ion-col class="ion-text-center" size="10">
-                <ion-button (click)="rechercheDetaillee()"
-                            class="ion-text-center"
-                            color="primary" expand="block">
+            <ion-col class="ion-text-center" size="12">
+                <ion-button (click)="rechercheDetaillee()" class="ion-text-center" color="primary" expand="block">
                     Recherche personnalisée
+                    <ion-icon slot="end" name="search"></ion-icon>
                 </ion-button>
             </ion-col>
         </ion-row>

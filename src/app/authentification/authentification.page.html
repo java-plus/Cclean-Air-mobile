@@ -33,6 +33,7 @@
     <ion-row class="ion-padding-top">
       <ion-col size="12">
         <ion-button class="button" expand="block" (click)="authentifier(formAuthentification)">Connexion
+          <ion-icon slot="end" name="log-in"></ion-icon>
         </ion-button>
       </ion-col>
       <ion-text class="ion-padding-top" *ngIf="statutErreur==true" color="danger">Identifiants incorrects, merci
@@ -41,7 +42,9 @@
     </ion-row>
     <ion-row>
       <ion-col size="12">
-        <ion-button routerLink="/inscription" class="button" expand="block" color="success">Inscription</ion-button>
+        <ion-button routerLink="/inscription" class="button" expand="block" color="success">Inscription
+          <ion-icon slot="end" name="create"></ion-icon>
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
