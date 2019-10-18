@@ -57,8 +57,7 @@ export class AccueilPage implements OnInit {
 
     /**
      * Récupère la géolocalisation de l'utilisateur, s'il l'accepte, et lui
-     * renvoie la commune enregistrée la plus proche
-     * de sa position
+     * renvoie la commune enregistrée la plus proche de sa position
      */
     async rechercheParPosition() {
         this.loading = true;
