@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {UtilisateurProfil} from '../entities/UtilisateurProfil';
 import {Plugins} from '@capacitor/core';
 import {PositionService} from './position.service';
 import {CommuneCarte} from '../entities/CommuneCarte';
@@ -12,10 +11,13 @@ import {ProfilService} from '../services/profil.service';
 
 const {Geolocation} = Plugins;
 
+/**
+ * Classe gérant la page d'accueil d'un membre authentifié.
+ */
 @Component({
     selector: 'app-accueil',
     templateUrl: './accueil.page.html',
-    styleUrls: ['./accueil.page.scss'],
+    styles: []
 })
 export class AccueilPage implements OnInit {
 
@@ -39,22 +41,34 @@ export class AccueilPage implements OnInit {
      */
     communeRecherche: CommuneRecherche;
 
+    isErreurRechercheParPosition: boolean;
 
-    constructor(private positionService: PositionService, private router: Router, private profilService: ProfilService) {
+
+    /**
+     * Constructeur
+     * @param positionService : PositionService
+     * @param router : Router
+     * @param profilService : ProfilService
+     */
+    constructor(private positionService: PositionService,
+                private router: Router,
+                private profilService: ProfilService) {
     }
 
     /**
-     * Récupère la géolocalisation de l'utilisateur, s'il l'accepte, et lui renvoie la commune enregistrée la plus proche
-     * de sa position
+     * Récupère la géolocalisation de l'utilisateur, s'il l'accepte, et lui
+     * renvoie la commune enregistrée la plus proche de sa position
      */
     async rechercheParPosition() {
         this.loading = true;
 
         fromPromise(Geolocation.getCurrentPosition())
             .pipe(
-                flatMap(posInfos => this.positionService.recupererCommuneLaPlusProche(posInfos))
+                flatMap(posInfos => this.positionService
+                    .recupererCommuneLaPlusProche(posInfos))
             )
             .subscribe(commune => {
+                    this.isErreurRechercheParPosition = false;
                     this.communeRecupere = commune;
                     this.loading = false;
                     this.router.navigate(['/recherche'], {
@@ -65,18 +79,25 @@ export class AccueilPage implements OnInit {
                         }
                     });
                 },
-                () => this.loading = false);
+                () => {
+                    this.loading = false;
+                    this.isErreurRechercheParPosition = true;
+                });
     }
 
+    /**
+     * Renvoie l'utilisateur vers la page de recherche détaillée.
+     */
     rechercheDetaillee() {
         this.router.navigate(['/recherche']);
     }
 
     ngOnInit() {
-
-        this.profilService.visualiserProfil().subscribe((user) => {
-            this.utilisateur = user.prenom.toString().concat(' ').concat(user.nom.toString());
-        });
+        this.profilService.visualiserProfil()
+            .subscribe((user) => {
+                this.utilisateur = user.prenom.toString().concat(' ')
+                    .concat(user.nom.toString());
+            });
     }
 
 }
