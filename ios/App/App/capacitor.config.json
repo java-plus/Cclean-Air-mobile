@@ -1,6 +1,6 @@
 {
   "appId": "dev.java.plus.cclean.air",
-  "appName": "Cclean'Air",
+  "appName": "cclean-air-mobile",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www"
