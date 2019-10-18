@@ -30,6 +30,11 @@ export class AppComponent {
       title: 'Recherche',
       url: '/recherche',
       icon: 'search'
+    },
+    {
+      title: 'Déconnexion',
+      url: '/deconnexion',
+      icon: 'log-out'
     }
   ];
 
