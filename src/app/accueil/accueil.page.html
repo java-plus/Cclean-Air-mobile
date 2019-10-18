@@ -1,47 +1,66 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="end">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Cclean'Air</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">Cclean'Air</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-menu-button color="light">
-          <ion-img src="assets/home_bg.png"></ion-img>
-        </ion-menu-button>
-      </ion-col>
-    </ion-row>
-    <ion-row class="ion-justify-content-center ion-margin-bottom">
-      <ion-col size="5" class="ion-text-center">
-        <h2>Bienvenue {{utilisateur}} !</h2>
-      </ion-col>
-    </ion-row>
-    <ion-row class="ion-justify-content-center ion-margin-top">
-      <ion-col class="ion-text-center" size="10">
-        <ion-button (click)="rechercheParPosition()" color="primary" expand="block" class="ion-text-center">Qualité de
-          l'air pour ma position</ion-button>
-      </ion-col>
-    </ion-row>
-    <ion-row class="ion-justify-content-center">
-      <ion-col class="ion-text-center" size="10">
-        <ion-button expand="block" color="primary" class="ion-text-center" routerLink="/indicateurs">
-          <p>Mes indicateurs enregistrées</p>
-        </ion-button>
-      </ion-col>
-    </ion-row>
-    <ion-row class="ion-justify-content-center">
-      <ion-col class="ion-text-center" size="10">
-        <ion-button (click)="rechercheDetaillee()" expand="block" color="primary" class="ion-text-center">Recherche
-          personnalisée</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <div *ngIf="loading === true" id="spinner">
-    <ion-img src="assets/loading.gif"></ion-img>
-  </div>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-menu-button color="light">
+                    <ion-img src="assets/home_bg.png"></ion-img>
+                </ion-menu-button>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center ion-margin-bottom">
+            <ion-col class="ion-text-center" size="5">
+                <h2>Bienvenue {{utilisateur}} !</h2>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="isErreurRechercheParPosition">
+            <ion-text class="ion-text-center" color="danger">
+                <p>
+                    <strong>
+                        Une erreur s'est produite dans la récupération des
+                        données locales. Veuillez vous reconnecter ou réessayer
+                        plus tard.
+                    </strong>
+                </p>
+            </ion-text>
+        </ion-row>
+        <ion-row class="ion-justify-content-center ion-margin-top">
+            <ion-col class="ion-text-center" size="10">
+                <ion-button (click)="rechercheParPosition()"
+                            class="ion-text-center"
+                            color="primary" expand="block">
+                    Qualité de l'air pour ma position
+                </ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+            <ion-col class="ion-text-center" size="10">
+                <ion-button class="ion-text-center" color="primary"
+                            expand="block"
+                            routerLink="/indicateurs">
+                    <p>Mes indicateurs enregistrés</p>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+            <ion-col class="ion-text-center" size="10">
+                <ion-button (click)="rechercheDetaillee()"
+                            class="ion-text-center"
+                            color="primary" expand="block">
+                    Recherche personnalisée
+                </ion-button>
+            </ion-col>
+        </ion-row>
+        <div *ngIf="loading === true" id="spinner">
+            <ion-img src="assets/loading.gif"></ion-img>
+        </div>
+    </ion-grid>
 </ion-content>
