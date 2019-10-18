@@ -52,23 +52,23 @@
       </ion-row>
       <ion-row class="ion-padding-top">
         <ion-col size="12">
-          <ion-button class="button" shape="round" expand="block" (click)="modif = true">Modifier compte
+          <ion-button class="button" expand="block" (click)="modif = true">Modifier compte
             <ion-icon slot="end" name="clipboard"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12">
-          <ion-button class="button" shape="round" expand="block" (click)="modifMdp = true">Modifier mot de passe
+          <ion-button class="button" expand="block" (click)="modifMdp = true">Modifier mot de passe
             <ion-icon slot="end" name="finger-print"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12">
-          <ion-button class="button" shape="round" expand="block" color="danger" (click)="suppression = true">Supprimer
+          <ion-button class="button" expand="block" color="danger" (click)="suppression = true">Supprimer
             compte
-            <ion-icon slot="end" name="close-circle"></ion-icon>
+            <ion-icon slot="end" name="trash"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
@@ -114,14 +114,14 @@
         </form>
         <ion-row class="ion-padding-top">
           <ion-col size="6">
-            <ion-button class="button" shape="round" expand="block" (click)="modif = false">Annuler
+            <ion-button class="button" expand="block" (click)="modif = false">Annuler
               <ion-icon slot="end" name="close-circle"></ion-icon>
             </ion-button>
           </ion-col>
           <ion-col size="6">
             <ion-button
               *ngIf="nom.value != '' && prenom.value != '' && email.value != '' && email.valid && commune.value != ''; else elseValidate"
-              class="button" shape="round" expand="block" (click)="modifierProfil()">Valider
+              class="button" expand="block" (click)="modifierProfil()">Valider
               <ion-icon slot="end" name="checkmark-circle"></ion-icon>
             </ion-button>
             <ng-template #elseValidate>
@@ -172,12 +172,12 @@
         </form>
         <ion-row class="ion-padding-top">
           <ion-col size="6">
-            <ion-button class="button" shape="round" expand="block" (click)="modifMdp = false">Annuler
+            <ion-button class="button" expand="block" (click)="modifMdp = false">Annuler
               <ion-icon slot="end" name="close-circle"></ion-icon>
             </ion-button>
           </ion-col>
           <ion-col size="6">
-            <ion-button class="button" shape="round" expand="block" (click)="modifierProfil()">Valider
+            <ion-button class="button" expand="block" (click)="modifierProfil()">Valider
               <ion-icon slot="end" name="checkmark-circle"></ion-icon>
             </ion-button>
           </ion-col>
@@ -197,7 +197,7 @@
   <ion-row>
     <ion-col size="3"></ion-col>
     <ion-col size="6">
-      <ion-button class="button" shape="round" expand="block" (click)="validerSuppression()">Valider
+      <ion-button class="button" expand="block" (click)="validerSuppression()">Valider
         <ion-icon slot="end" name="checkmark-circle"></ion-icon>
       </ion-button>
     </ion-col>
@@ -205,7 +205,7 @@
   <ion-row>
     <ion-col size="3"></ion-col>
     <ion-col size="6">
-      <ion-button class="button" shape="round" expand="block" (click)="suppression=false">Annuler
+      <ion-button class="button" expand="block" (click)="suppression=false">Annuler
         <ion-icon slot="end" name="close-circle"></ion-icon>
       </ion-button>
     </ion-col>
@@ -219,7 +219,7 @@
   <ion-row>
     <ion-col size="3"></ion-col>
     <ion-col size="6">
-      <ion-button class="button" shape="round" expand="block" (click)="message=false">Ok
+      <ion-button class="button" expand="block" (click)="message=false">Ok
       </ion-button>
     </ion-col>
   </ion-row>
