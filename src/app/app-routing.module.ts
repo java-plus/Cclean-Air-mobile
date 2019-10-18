@@ -54,6 +54,10 @@ const routes: Routes = [
         path: 'communes/historique/:codeInsee',
         loadChildren: () => import('./historique-commune/historique-commune.module').then(m => m.HistoriqueCommunePageModule),
         canActivate: [ConnexionGuard]
+    },
+    {
+        path: 'deconnexion',
+        loadChildren: () => import('./deconnexion/deconnexion.module').then(m => m.DeconnexionPageModule)
     }
 ];
 
