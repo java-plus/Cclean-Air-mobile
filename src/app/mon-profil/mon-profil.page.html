@@ -3,9 +3,9 @@
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-buttons slot="start">
+    <ion-buttons slot="start" *ngIf="modif==false && modifMdp==false && suppression==false && message==false">
       <ion-icon size="large" routerLink="/accueil" name="arrow-back"></ion-icon>
-    </ion-buttons>
+    </ion-buttons>    
     <ion-title class="ion-text-center">
       Cclean'Air
     </ion-title>
@@ -100,11 +100,16 @@
               name="email" id="email"
               pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$">
             </ion-input>
-          </ion-item>
+          </ion-item>          
+          <ion-text *ngIf="email.invalid" color="danger"><p class="ion-text-center">Merci d'indiquer une adresse mail valide</p></ion-text>
           <ion-item>
             <ion-label position="floating">Commune</ion-label>
-            <ion-input type="text" class="w-100" required #commune="ngModel" [(ngModel)]="utilisateurTemp.commune"
-              name="commune" id="commune"></ion-input>
+
+            <ion-select [(ngModel)]="utilisateurTemp.commune" #commune="ngModel" cancelText="Annuler" name="commune"
+              id="commune" okText="Ok" placeholder="Commune" required class="ion-no-padding">
+              <ion-select-option *ngFor="let commune of listeCommunes" ngDefaultControl value="{{commune.nom}}">
+                {{commune.nom}}</ion-select-option>
+            </ion-select>
           </ion-item>
         </form>
         <ion-row class="ion-padding-top">
@@ -184,7 +189,8 @@
 </ion-content>
 
 <ion-content *ngIf="suppression==true">
-  <ion-title class="ion-padding-top ion-text-center" justify-content-center align-items-center style="height: 30%; flex-direction: column">Êtes-vous sûr de vouloir<br>supprimer votre compte
+  <ion-title class="ion-padding-top ion-text-center" justify-content-center align-items-center
+    style="height: 30%; flex-direction: column">Êtes-vous sûr de vouloir<br>supprimer votre compte
     ?<br>
     <ion-icon class="ion-padding-top" name="alert" size="large" color="danger"></ion-icon>
   </ion-title>
