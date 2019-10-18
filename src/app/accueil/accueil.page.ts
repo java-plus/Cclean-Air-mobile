@@ -5,7 +5,9 @@ import {PositionService} from './position.service';
 import {CommuneCarte} from '../entities/CommuneCarte';
 import {flatMap} from 'rxjs/operators';
 import {fromPromise} from 'rxjs/internal-compatibility';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {CommuneRecherche} from '../entities/CommuneRecherche';
+import {ProfilService} from '../services/profil.service';
 
 
 const {Geolocation} = Plugins;
@@ -20,16 +22,25 @@ export class AccueilPage implements OnInit {
     /**
      * Utilisateur connecté
      */
-    utilisateur: UtilisateurProfil;
+    utilisateur: string;
 
     /**
      * Cet attribut représente l'affichage ou non de l'icone de chargement
      */
     loading: boolean;
 
-    communeRecherche: CommuneCarte;
+    /**
+     * Commune qui va être envoyé au back pour recherche
+     */
+    communeRecupere: CommuneCarte;
 
-    constructor(private positionService: PositionService, private router: Router) {
+    /**
+     * Commune retournée au back
+     */
+    communeRecherche: CommuneRecherche;
+
+
+    constructor(private positionService: PositionService, private router: Router, private profilService: ProfilService) {
     }
 
     /**
@@ -44,14 +55,28 @@ export class AccueilPage implements OnInit {
                 flatMap(posInfos => this.positionService.recupererCommuneLaPlusProche(posInfos))
             )
             .subscribe(commune => {
-                    this.communeRecherche = commune;
+                    this.communeRecupere = commune;
                     this.loading = false;
-                    console.log(this.communeRecherche);
+                    this.router.navigate(['/recherche'], {
+                        queryParams: {
+                            codeInsee: this.communeRecupere.codeINSEE,
+                            nomCommune: this.communeRecupere.nomCommune,
+
+                        }
+                    });
                 },
                 () => this.loading = false);
     }
 
+    rechercheDetaillee() {
+        this.router.navigate(['/recherche']);
+    }
+
     ngOnInit() {
+
+        this.profilService.visualiserProfil().subscribe((user) => {
+            this.utilisateur = user.prenom.toString().concat(' ').concat(user.nom.toString());
+        });
     }
 
 }
