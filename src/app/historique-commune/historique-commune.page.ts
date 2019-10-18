@@ -31,6 +31,12 @@ export class HistoriqueCommunePage implements OnInit {
 
   myDate = new Date().toISOString();
 
+  date = new Date();
+
+  datePassee = new Date();
+
+  myLastDate: string;
+
   donneesRecherchees = new DonneesLocalesRecherchees(null, null, '');
   commune = new CommuneDtoVisualisation('', null);
   meteo = new ConditionMeteoDtoVisualisation(null, null, null);
@@ -61,6 +67,10 @@ export class HistoriqueCommunePage implements OnInit {
 
 
   ngOnInit() {
+
+    this.datePassee.setDate(this.date.getDate() - 7);
+    this.myLastDate = this.datePassee.toISOString();
+
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.codeInsee = params.get('codeInsee');
       this.polluantService.recupererPolluant()

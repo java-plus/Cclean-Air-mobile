@@ -24,37 +24,31 @@
         <ion-row *ngIf="isErreurRechercheParPosition">
             <ion-text class="ion-text-center" color="danger">
                 <p>
-                    <strong>
-                        Une erreur s'est produite dans la récupération des
-                        données locales. Veuillez vous reconnecter ou réessayer
-                        plus tard.
-                    </strong>
+
+                    Une erreur s'est produite dans la récupération des
+                    données locales. Veuillez vous reconnecter ou réessayer
+                    plus tard.
+
                 </p>
             </ion-text>
         </ion-row>
         <ion-row class="ion-justify-content-center ion-margin-top">
             <ion-col class="ion-text-center" size="10">
-                <ion-button (click)="rechercheParPosition()"
-                            class="ion-text-center"
-                            color="primary" expand="block">
+                <ion-button (click)="rechercheParPosition()" class="ion-text-center" color="primary" expand="block">
                     Qualité de l'air pour ma position
                 </ion-button>
             </ion-col>
         </ion-row>
         <ion-row class="ion-justify-content-center">
             <ion-col class="ion-text-center" size="10">
-                <ion-button class="ion-text-center" color="primary"
-                            expand="block"
-                            routerLink="/indicateurs">
+                <ion-button class="ion-text-center" color="primary" expand="block" routerLink="/indicateurs">
                     <p>Mes indicateurs enregistrés</p>
                 </ion-button>
             </ion-col>
         </ion-row>
         <ion-row class="ion-justify-content-center">
             <ion-col class="ion-text-center" size="10">
-                <ion-button (click)="rechercheDetaillee()"
-                            class="ion-text-center"
-                            color="primary" expand="block">
+                <ion-button (click)="rechercheDetaillee()" class="ion-text-center" color="primary" expand="block">
                     Recherche personnalisée
                 </ion-button>
             </ion-col>
