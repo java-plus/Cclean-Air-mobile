@@ -6,7 +6,8 @@
         <ion-title class="ion-text-center">Cclean'Air</ion-title>
     </ion-toolbar>
 </ion-header>
-<ion-text *ngIf="isErreurRecuperationCommunes" class="ion-padding-top" color="danger" text-center>
+<ion-text *ngIf="isErreurRecuperationCommunes" class="ion-padding-top" color="danger">
+
     <p class="text-error">
         Une erreur est survenue dans la récupération des données.
     </p>
@@ -57,14 +58,13 @@
                         name="motDePasse2" placeholder="Confirmation du mot de passe." required type="password">
                     </ion-input>
                 </ion-item>
-                <ion-item *ngIf="(mdp2.dirty && motDePasseDeConfirmation
-                            !== utilisateur.motDePasse)" lines="none">
-                    <ion-text color="danger">
-                        <small>
-                            Les mots de passe ne correspondent pas.
-                        </small>
-                    </ion-text>
-                </ion-item>
+                <ion-text color="danger" *ngIf="(mdp2.dirty && motDePasseDeConfirmation
+                    !== utilisateur.motDePasse)" lines="none">
+                    <p class="ion-text-center">
+                        Les mots de passe ne correspondent pas.
+                    </p>
+                </ion-text>
+
                 <ion-item>
                     <ion-select [(ngModel)]="utilisateur.nomCommune" cancelText="Annuler" name="commune" okText="Ok"
                         placeholder="Commune" required value="brown" class="ion-no-padding">
@@ -73,11 +73,6 @@
                             {{commune.nom}}
                         </ion-select-option>
                     </ion-select>
-
-                    <!--                    <ion-input
-                                                [(ngModel)]="utilisateur.nomCommune"
-                                                name="commune" placeholder="Commune" required>
-                                        </ion-input>-->
                 </ion-item>
                 <ion-item>
                     <ion-input [(ngModel)]="utilisateur.codePostal" name="codePostal" placeholder="Code postal"
@@ -87,7 +82,7 @@
                 <ion-item lines="none">
                     <ion-checkbox [(ngModel)]="utilisateur.statutNotification" name="alerteCheckbox" slot="start">
                     </ion-checkbox>
-                    <ion-label text-wrap>
+                    <ion-label class="ion-text-wrap">
                         Je souhaite recevoir des alertes pour ma commune.
                     </ion-label>
                 </ion-item>
@@ -95,20 +90,18 @@
                     <ion-checkbox #checkboxRGPD="ngModel" [(ngModel)]="isRGPDCoche" name="rgpdCheckbox" required
                         slot="start">
                     </ion-checkbox>
-                    <ion-label text-wrap>
+                    <ion-label class="ion-text-wrap">
                         <ion-text color="medium">[Requis]</ion-text>
                         J'accepte que Cclean-Air reccueille et utilise les
                         données de ce formulaire.
                     </ion-label>
                 </ion-item>
-                <ion-item *ngIf="((checkboxRGPD.dirty && !isRGPDCoche)
+                <ion-text color="danger" *ngIf="((checkboxRGPD.dirty && !isRGPDCoche)
                     || (!isRGPDCoche && !isFormulaireValide))">
-                    <ion-text color="danger">
-                        <p>
-                            Votre accord est requis.
-                        </p>
-                    </ion-text>
-                </ion-item>
+                    <p class="ion-text-center">
+                        Votre accord est requis.
+                    </p>
+                </ion-text>
                 <ion-item lines="none">
                     <ion-button (click)="afficherInfosRGPD()" fill="clear">
                         En savoir plus sur la gestion des données.
@@ -119,13 +112,14 @@
                     <ion-icon slot="end" name="create"></ion-icon>
                 </ion-button>
             </form>
-            <ion-text *ngIf="!isFormulaireValide" class="ion-padding-top" color="danger" text-center>
-                <p class="text-error">
+            <ion-text *ngIf="!isFormulaireValide" class="ion-padding-top" color="danger">
+                <p class="ion-text-center">
                     Le formulaire n'est pas valide. Veuillez le corriger.
                 </p>
             </ion-text>
-            <ion-text *ngIf="isErreurCreation" class="ion-padding-top" color="danger" text-center>
-                <p class="text-error">
+            <ion-text *ngIf="isErreurCreation" class="ion-padding-top" color="danger">
+                <p class="ion-text-center">
+
                     Une erreur est survenue dans la création du compte.
                 </p>
             </ion-text>
@@ -147,8 +141,8 @@
             </ion-card-header>
             <ion-card-content>
                 <ion-text color="success">
-                    <p>
-                        <ion-icon color="success" name="checkmark-circle">
+                    <p class="ion-text-center">
+                        <ion-icon color="success" name="checkmark-circle" size="large">
                         </ion-icon>
                         Votre compte a bien été créé.
                     </p>

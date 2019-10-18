@@ -1,8 +1,10 @@
 <ion-header>
     <ion-toolbar>
-        <ion-icon routerLink="/accueil" name="arrow-back"></ion-icon>
         <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-buttons slot="start">
+            <ion-icon size="large" routerLink="/accueil" name="arrow-back"></ion-icon>
         </ion-buttons>
         <ion-title>Cclean'Air</ion-title>
     </ion-toolbar>
@@ -48,14 +50,14 @@
                 <ion-text color="success" *ngIf="!resultatRecherche.niveauAlerte">
                     <p>Aucun alerte pollution</p>
                 </ion-text>
-              <ion-text color="danger" *ngIf="resultatRecherche.niveauAlerte">
-                <p>Alerte Pollution : {{resultatRecherche.niveauAlerte.nom}}</p>
-              </ion-text>
-              <ion-row>
-              <p *ngFor="let polluant of resultatRecherche.polluants">
-                {{polluant.nom}} : {{polluant.valeur}} {{polluant.unite}}
-              </p>
-              </ion-row>
+                <ion-text color="danger" *ngIf="resultatRecherche.niveauAlerte">
+                    <p class="ion-text-center">Alerte Pollution : {{resultatRecherche.niveauAlerte.nom}}</p>
+                </ion-text>
+                <ion-row>
+                    <p *ngFor="let polluant of resultatRecherche.polluants">
+                        {{polluant.nom}} : {{polluant.valeur}} {{polluant.unite}}
+                    </p>
+                </ion-row>
             </ion-card-content>
 
         </ion-card>

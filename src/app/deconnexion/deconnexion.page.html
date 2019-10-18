@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title text-center>Cclean'Air</ion-title>
+        <ion-title class="ion-text-center">Cclean'Air</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -8,27 +8,27 @@
     <ion-card>
         <ion-card-header>
             <ng-container *ngIf="!isErreurDeDeconnexion && !isDeconnexionOk">
-                <ion-text color="primary" text-center>
-                    <h1>Déconnexion en cours ...</h1>
+                <ion-text color="primary">
+                    <h1 class="ion-text-center">Déconnexion en cours ...</h1>
                 </ion-text>
             </ng-container>
             <ng-container *ngIf="isErreurDeDeconnexion && !isDeconnexionOk">
-                <ion-text color="danger" text-center>
-                    <h1>La déconnexion a échoué. Veuillez vérifier votre
+                <ion-text color="danger">
+                    <p class="ion-text-center">La déconnexion a échoué. Veuillez vérifier votre
                         connexion
-                        internet ou réessayer plus tard.</h1>
+                        internet ou réessayer plus tard.</p>
                 </ion-text>
             </ng-container>
             <ng-container *ngIf="isDeconnexionOk">
-                <ion-text color="success" text-center>
-                    <h1>Vous avez été déconnecté.</h1>
+                <ion-text color="success">
+                    <h1 class="ion-text-center">Vous avez été déconnecté.</h1>
                 </ion-text>
             </ng-container>
         </ion-card-header>
         <ion-card-content>
             <ng-container *ngIf="isDeconnexionOk">
-                <ion-text text-center>
-                    <p>Vous serez redirigé sur la page d'accueil d'ici 5
+                <ion-text>
+                    <p class="ion-text-center">Vous serez redirigé sur la page d'accueil d'ici 5
                         secondes.</p>
                 </ion-text>
             </ng-container>
