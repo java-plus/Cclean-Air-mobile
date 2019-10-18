@@ -32,8 +32,9 @@
       <ion-checkbox color="primary" slot="start" name="alerte" [(ngModel)]="indicateurCreation.alerte"
         #alerte="ngModel"></ion-checkbox>
     </ion-item>
-    <ion-button expand="block" shape="round" class="ion-margin-top" (click)="creerIndicateur(indicateurCreation)"
+    <ion-button expand="block" class="ion-margin-top" (click)="creerIndicateur(indicateurCreation)"
       [disabled]="commune.pristine">
+      <ion-icon slot="end" name="add-circle-outline"></ion-icon>
       Créer
     </ion-button>
     <ion-text color="danger">
