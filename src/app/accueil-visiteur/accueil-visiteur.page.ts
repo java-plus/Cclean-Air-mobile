@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthentificationService} from '../services/authentification.service';
 import {Router} from '@angular/router';
+import {NotificationService} from '../services/notification.service';
 
 /**
  * Classe gérant la page d'accueil d'un visiteur (utilisateur non authentifié).
@@ -16,9 +17,11 @@ export class AccueilVisiteurPage implements OnInit {
    * Constructeur
    * @param authenticationService : AuthentificationService
    * @param router : Router
+   * @param notificationService : NotificationService
    */
     constructor(private authenticationService: AuthentificationService,
-                private router: Router) {
+                private router: Router,
+                private notificationService: NotificationService) {
     }
 
   /**
@@ -34,6 +37,7 @@ export class AccueilVisiteurPage implements OnInit {
 
     ngOnInit(): void {
         this.renvoyerVersAccueilSiDejaAuthentifie();
+        this.notificationService.envoyerNotification('coucou', 'attention, alerte !');
     }
 
 }
