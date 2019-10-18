@@ -9,11 +9,12 @@
 
 <ion-content>
   <ion-grid class="ion-padding-horizontal">
-    <ion-row class="ion-padding-top">
-      <ion-col size="9">
-        <h1>Se connecter</h1>
-      </ion-col>
-    </ion-row>
+
+    <ion-img class="ion-padding-bottom" src="assets/logo.png">
+    </ion-img>
+    <ion-text color="primary" class="ion-text-center">
+      <h1>Cclean'Air</h1>
+    </ion-text>
     <ion-row class="ion-padding-left">
       <ion-col size="10">
         <form #formAuthentification="ngForm">
@@ -31,13 +32,18 @@
       </ion-col>
     </ion-row>
     <ion-row class="ion-padding-top">
-      <ion-col size="6">
-        <ion-button class="button" shape="round" expand="block" (click)="authentifier(formAuthentification)">Valider
+      <ion-col size="12">
+        <ion-button class="button" expand="block" (click)="authentifier(formAuthentification)">Connexion
         </ion-button>
       </ion-col>
       <ion-text class="ion-padding-top" *ngIf="statutErreur==true" color="danger">Identifiants incorrects, merci
         de réessayer.
       </ion-text>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-button routerLink="/inscription" class="button" expand="block" color="success">Inscription</ion-button>
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
