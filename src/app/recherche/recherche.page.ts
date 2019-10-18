@@ -47,6 +47,12 @@ export class RecherchePage implements OnInit {
         }
     }
 
+
+    /**
+     * Fonction executé quand l'utilisateur clique sur une commune dans la barre de recherche
+     * @param commune : Objet commune représenté par la liste d'autocompletion de la barre de recherche
+     * Sera envoyé en au service
+     */
     submitSearch(commune: CommuneCarte) {
         this.loading = true;
         const communeRecherche = new CommuneRecherche();
@@ -60,13 +66,18 @@ export class RecherchePage implements OnInit {
 
     ngOnInit() {
 
+        /**
+         * SI présence de paramètres dans l'url, initialisé les données pour cette commune
+         */
         this.route.queryParams.subscribe(params => {
-            this.recherche = new CommuneRecherche();
-            this.recherche.codeEtNom = {nomCommune: params.nomCommune, codeInsee: params.codeInsee};
-            this.communeService.recupererDetailsCommune(this.recherche)
-                .subscribe((commune) => {
-                    this.resultatRecherche = commune;
-                });
+            if (Object.entries(params).length > 0) {
+                this.recherche = new CommuneRecherche();
+                this.recherche.codeEtNom = {nomCommune: params.nomCommune, codeInsee: params.codeInsee};
+                this.communeService.recupererDetailsCommune(this.recherche)
+                    .subscribe((commune) => {
+                        this.resultatRecherche = commune;
+                    });
+            }
         });
 
 
