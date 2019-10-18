@@ -4,6 +4,9 @@ import {CommuneService} from '../services/commune.service';
 import {CommuneRecherche} from '../entities/CommuneRecherche';
 import {ResultatRechercheCommune} from '../entities/ResultatRechercheCommune';
 import {ActivatedRoute} from '@angular/router';
+import {Plugins} from '@capacitor/core';
+
+const {Storage} = Plugins;
 
 
 @Component({
@@ -59,12 +62,21 @@ export class RecherchePage implements OnInit {
         communeRecherche.codeEtNom = {nomCommune: commune.nomCommune, codeInsee: commune.codeINSEE};
 
         this.communeService.recupererDetailsCommune(communeRecherche).subscribe((resultat) => {
+            Storage.set({key: 'donnees_locales'.concat(resultat.nom), value: JSON.stringify(resultat)});
             this.resultatRecherche = resultat;
             this.loading = false;
-        }, () => this.loading = false);
+        }, () => {
+            Storage.get({key: 'donnees_locales'.concat(this.recherche.codeEtNom.nomCommune)}).then((details) => {
+                console.log('chargé depuis le cache');
+                this.resultatRecherche = JSON.parse(details.value);
+            });
+            this.loading = false;
+        });
     }
 
     ngOnInit() {
+
+        this.resultatRecherche = null;
 
         /**
          * SI présence de paramètres dans l'url, initialisé les données pour cette commune
