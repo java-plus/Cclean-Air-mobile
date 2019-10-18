@@ -60,8 +60,12 @@ export class RecherchePage implements OnInit {
 
         this.communeService.recupererDetailsCommune(communeRecherche).subscribe((resultat) => {
             this.resultatRecherche = resultat;
+            this.items = [];
             this.loading = false;
-        }, () => this.loading = false);
+        }, () => {
+            this.loading = false;
+            this.items = [];
+        });
     }
 
     ngOnInit() {
