@@ -6,6 +6,7 @@ import { ConditionMeteoDtoVisualisation } from '../entities/ConditionMeteoDtoVis
 import { PolluantDtoVisualisation } from '../entities/PolluantDtoVisualisation';
 import { DonneesLocalesDto } from '../entities/DonneesLocalesDto';
 import { CommuneAlerte } from '../entities/commune-alerte';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-details-indicateurs',
@@ -37,7 +38,7 @@ export class DetailsIndicateursPage implements OnInit {
 
   listePolluantsAlerte: string[] = [];
 
-  constructor(private route: ActivatedRoute, private communeService: CommuneService) {
+  constructor(private route: ActivatedRoute, private communeService: CommuneService, private notificationService: NotificationService) {
     this.codeInsee = route.snapshot.paramMap.get('codeInsee');
   }
 
@@ -65,7 +66,7 @@ export class DetailsIndicateursPage implements OnInit {
             this.icon = 'sunny';
             this.iconColor = 'warning';
           }
-          this.communeService.recupererAlertesPollutionPourTousIndicateurs()
+          this.notificationService.recupererAlertesPollutionPourTousIndicateurs()
             .subscribe(
               data => {
                 this.listeCommuneAlertes = data;
@@ -74,17 +75,11 @@ export class DetailsIndicateursPage implements OnInit {
                     if (commune.nomCommune === this.donneesLocales.commune.nom) {
                       this.alerte = true;
                       this.listePolluantsAlerte.push(commune.nomPolluant);
-
                     }
-
-                  }, err => {
-                    console.log('erreur')
                   });
                 }
               }
             );
-
-
         }, err => {
           this.erreur = err.error;
           this.affichageErreur = true;

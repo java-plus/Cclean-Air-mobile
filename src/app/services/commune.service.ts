@@ -118,12 +118,6 @@ export class CommuneService {
         }, options);
     }
 
-    recupererAlertesPollutionPourTousIndicateurs(): Observable<CommuneAlerte[]> {
-        return this.http.get<CommuneAlerte[]>(`${URL_BACKEND}/alertes`, {
-            withCredentials: true
-        });
-    }
-
 
 
 
