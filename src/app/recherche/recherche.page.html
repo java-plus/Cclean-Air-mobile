@@ -35,14 +35,14 @@
                 </ion-card-subtitle>
                 <ion-row>
                     <ion-item>
-                        <ion-col>
-                            <ion-item lines="none">
+                        <ion-col size-sm>
+                            <div class="ion-text-center vertical-align-content">
                                 <ion-icon name="{{icon}}" slot="start" size="large" style="zoom:3.0;"
                                     color="{{iconColor}}">
                                 </ion-icon>
-                            </ion-item>
+                            </div>
                         </ion-col>
-                        <ion-col>
+                        <ion-col size-sm>
                             <ion-item lines="none">
                                 <ion-icon name="thermometer" slot="start" size="large" color="danger"></ion-icon>
                                 <ion-label> {{resultatRecherche.meteo.temperature| number: '1.0-0'}} °C</ion-label>
