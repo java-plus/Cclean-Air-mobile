@@ -1,16 +1,19 @@
-import { Component, OnInit, ViewChild, ElementRef, ViewChildren, ViewContainerRef, AfterViewInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { CommuneService } from '../services/commune.service';
-import { DonneesLocalesHistorique } from '../entities/DonneesLocalesHistorique';
-import { DonneesLocalesRecherchees } from '../entities/DonneesLocalesRecherchees';
-import { PolluantDtoVisualisation } from '../entities/PolluantDtoVisualisation';
-import { PolluantService } from '../services/polluant.service';
-import { DonneesLocalesDto } from '../entities/DonneesLocalesDto';
-import { CommuneDtoVisualisation } from '../entities/CommuneDtovisualisation';
-import { ConditionMeteoDtoVisualisation } from '../entities/ConditionMeteoDtoVisualisation';
-import { Chart } from 'chart.js';
-import { DatePipe } from '@angular/common';
-import { NgForm } from '@angular/forms';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, ParamMap} from '@angular/router';
+import {CommuneService} from '../services/commune.service';
+import {DonneesLocalesHistorique} from '../entities/DonneesLocalesHistorique';
+import {DonneesLocalesRecherchees} from '../entities/DonneesLocalesRecherchees';
+import {PolluantDtoVisualisation} from '../entities/PolluantDtoVisualisation';
+import {PolluantService} from '../services/polluant.service';
+import {DonneesLocalesDto} from '../entities/DonneesLocalesDto';
+import {CommuneDtoVisualisation} from '../entities/CommuneDtovisualisation';
+import {ConditionMeteoDtoVisualisation} from '../entities/ConditionMeteoDtoVisualisation';
+import {Chart} from 'chart.js';
+import {DatePipe} from '@angular/common';
+import {NgForm} from '@angular/forms';
+import {Plugins} from '@capacitor/core';
+
+const {Storage} = Plugins;
 
 @Component({
   selector: 'app-historique-commune',
@@ -95,98 +98,98 @@ export class HistoriqueCommunePage implements OnInit {
    */
   rechercheHistorique() {
 
-    if (this.donneesRecherchees.dateDebut > this.donneesRecherchees.dateFin) {
-      this.erreur = "Veuillez vérifier les dates saisies"
-    } else {
-      this.communeService.afficherHistorique(this.codeInsee, this.donneesRecherchees)
-        .subscribe(
-          donnees => {
+        if (this.donneesRecherchees.dateDebut > this.donneesRecherchees.dateFin) {
+            this.erreur = "Veuillez vérifier les dates saisies"
+        } else {
+            this.communeService.afficherHistorique(this.codeInsee, this.donneesRecherchees)
+                .subscribe(
+                    donnees => {
 
-            this.donneesHistorique = donnees;
+                        this.donneesHistorique = donnees;
 
-            this.donneesHistorique.forEach(element => {
+                        this.donneesHistorique.forEach(element => {
 
-              if (element.polluantDtoVisualisation.nom === null) {
-                this.polluantVide = true;
-              } else {
-                this.polluantVide = false;
-              }
-              this.unite = element.polluantDtoVisualisation.unite;
+                            if (element.polluantDtoVisualisation.nom === null) {
+                                this.polluantVide = true;
+                            } else {
+                                this.polluantVide = false;
+                            }
+                            this.unite = element.polluantDtoVisualisation.unite;
 
-              this.dataTab.push(element.polluantDtoVisualisation.valeur);
-              const dateFormatee = this.datepipe.transform(element.date, 'dd-MM-yyyy hh:mm');
-              this.labels.push(dateFormatee);
+                            this.dataTab.push(element.polluantDtoVisualisation.valeur);
+                            const dateFormatee = this.datepipe.transform(element.date, 'dd-MM-yyyy hh:mm');
+                            this.labels.push(dateFormatee);
 
 
-              this.lineChart = new Chart(this.lineCanvas.nativeElement, {
-                type: "line",
-                data: {
-                  labels: this.labels,
-                  datasets: [
-                    {
-                      label: this.donneesRecherchees.polluant,
-                      fill: false,
-                      lineTension: 0.1,
-                      backgroundColor: "rgba(75,192,192,0.4)",
-                      borderColor: "rgba(75,192,192,1)",
-                      borderCapStyle: "butt",
-                      borderDash: [],
-                      borderDashOffset: 0.0,
-                      borderJoinStyle: "miter",
-                      pointBorderColor: "rgba(75,192,192,1)",
-                      pointBackgroundColor: "#fff",
-                      pointBorderWidth: 1,
-                      pointHoverRadius: 5,
-                      pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                      pointHoverBorderColor: "rgba(220,220,220,1)",
-                      pointHoverBorderWidth: 2,
-                      pointRadius: 1,
-                      pointHitRadius: 10,
-                      data: this.dataTab,
-                      spanGaps: false
+                            this.lineChart = new Chart(this.lineCanvas.nativeElement, {
+                                type: "line",
+                                data: {
+                                    labels: this.labels,
+                                    datasets: [
+                                        {
+                                            label: this.donneesRecherchees.polluant,
+                                            fill: false,
+                                            lineTension: 0.1,
+                                            backgroundColor: "rgba(75,192,192,0.4)",
+                                            borderColor: "rgba(75,192,192,1)",
+                                            borderCapStyle: "butt",
+                                            borderDash: [],
+                                            borderDashOffset: 0.0,
+                                            borderJoinStyle: "miter",
+                                            pointBorderColor: "rgba(75,192,192,1)",
+                                            pointBackgroundColor: "#fff",
+                                            pointBorderWidth: 1,
+                                            pointHoverRadius: 5,
+                                            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                                            pointHoverBorderColor: "rgba(220,220,220,1)",
+                                            pointHoverBorderWidth: 2,
+                                            pointRadius: 1,
+                                            pointHitRadius: 10,
+                                            data: this.dataTab,
+                                            spanGaps: false
+                                        }
+                                    ]
+                                },
+                                options: {
+                                    legend: {
+                                        display: false
+                                    },
+                                    tooltips: {
+                                        callbacks: {
+                                            label: function (tooltipItem) {
+                                                return tooltipItem.yLabel;
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        });
+                        if (this.polluantVide === false) {
+                            this.affichageFormulaire = false;
+                        }
+                        if (this.donneesHistorique.length == 0) {
+                            this.affichageFormulaire = true;
+                            this.donnneesVides = true;
+                            this.erreur = "Il n'y a pas de données pour les dates et polluant choisis"
+                        }
+                        this.formulaire.resetForm();
+                    }, err => {
+                        this.erreur = err.error;
                     }
-                  ]
-                },
-                options: {
-                  legend: {
-                    display: false
-                  },
-                  tooltips: {
-                    callbacks: {
-                      label: function (tooltipItem) {
-                        return tooltipItem.yLabel;
-                      }
-                    }
-                  }
-                }
-              });
-            });
-            if (this.polluantVide === false) {
-              this.affichageFormulaire = false;
-            }
-            if (this.donneesHistorique.length == 0) {
-              this.affichageFormulaire = true;
-              this.donnneesVides = true;
-              this.erreur = "Il n'y a pas de données pour les dates et polluant choisis"
-            }
-            this.formulaire.resetForm();
-          }, err => {
-            this.erreur = err.error;
-          }
-        );
+                );
+
+        }
 
     }
 
-  }
+    /**
+     *méthode qui retourne vers le formulaire
+     *
+     * @memberof HistoriqueCommunePage
+     */
+    retourFormulaire() {
 
-  /**
-   *méthode qui retourne vers le formulaire
-   *
-   * @memberof HistoriqueCommunePage
-   */
-  retourFormulaire() {
-
-    this.affichageFormulaire = true;
-  }
+        this.affichageFormulaire = true;
+    }
 
 }
