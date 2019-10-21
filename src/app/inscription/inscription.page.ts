@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpErrorResponse} from '@angular/common/http';
-import {UtilisateurInscription} from '../entities/utilisateur-inscription';
-import {NgForm} from '@angular/forms';
-import {InscriptionService} from './inscription.service';
-import {Router} from '@angular/router';
-import {Commune} from '../entities/commune';
-import {CommuneService} from '../services/commune.service';
+import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { UtilisateurInscription } from '../entities/utilisateur-inscription';
+import { NgForm } from '@angular/forms';
+import { InscriptionService } from './inscription.service';
+import { Router } from '@angular/router';
+import { Commune } from '../entities/commune';
+import { CommuneService } from '../services/commune.service';
 
 /**
  * Page gérant l'affiche du formulaire d'inscription et les informations sur le
@@ -18,7 +18,7 @@ import {CommuneService} from '../services/commune.service';
 })
 export class InscriptionPage implements OnInit {
 
-    champsInvalideMsg = 'Champ invalide.';
+    champsInvalideMsg = 'Champ invalide';
     motDePasseDeConfirmation: string;
     utilisateur: UtilisateurInscription = new UtilisateurInscription(null,
         null, null, null, ['MEMBRE'],
@@ -38,8 +38,8 @@ export class InscriptionPage implements OnInit {
      * @param communeService : CommuneService
      */
     constructor(private inscriptionService: InscriptionService,
-                private router: Router,
-                private communeService: CommuneService) {
+        private router: Router,
+        private communeService: CommuneService) {
     }
 
     /**

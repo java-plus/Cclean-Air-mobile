@@ -3,6 +3,9 @@
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-icon size="large" routerLink="/accueil" name="arrow-back"></ion-icon>
+    </ion-buttons>
     <ion-title class="ion-text-center">
       Cclean'Air
     </ion-title>
@@ -12,7 +15,7 @@
 <ion-content class="ion-padding">
 
   <ion-toolbar>
-    <ion-title class="ion-text-center ion-margin-bottom ion-margin-top">MES INDICATEURS</ion-title>
+    <h1 class="ion-margin-bottom ion-margin-top">Mes indicateurs</h1>
   </ion-toolbar>
 
 
@@ -23,19 +26,22 @@
   </ion-toolbar>
   <ion-toolbar class="ion-margin-top" *ngIf="!indicateurVide">
     <ion-toolbar *ngFor="let indicateur of listeIndicateurs">
-      <ion-button expand="block" shape="round" color="medium" routerLink="/indicateurs/{{indicateur.codeInsee}}">
+      <ion-button expand="block" color="medium" routerLink="/indicateurs/{{indicateur.codeInsee}}">
+        <ion-icon slot="end" name="information-circle-outline"></ion-icon>
         {{indicateur.nomCommune}}
       </ion-button>
     </ion-toolbar>
   </ion-toolbar>
 
   <ion-toolbar>
-    <ion-button expand="block" shape="round" routerLink="/indicateurs/creer" [disabled]="!compteurIndicateurs">
-      <ion-icon name="add"></ion-icon>
+    <ion-button expand="block" routerLink="/indicateurs/creer" [disabled]="!compteurIndicateurs">
+      <ion-icon slot="end" name="add"></ion-icon>
       Ajouter un indicateur
     </ion-button>
-    <ion-text color="danger" *ngIf="!compteurIndicateurs" text-center>Vous avez atteint la limite de 5
-      indicateurs</ion-text>
+    <ion-text color="danger">
+      <p *ngIf="!compteurIndicateurs" class="ion-text-center">Vous avez atteint la limite de 5
+        indicateurs</p>
+    </ion-text>
   </ion-toolbar>
 
 

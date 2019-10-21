@@ -1,8 +1,10 @@
 <ion-header>
   <ion-toolbar>
-    <ion-icon routerLink="/indicateurs" name="arrow-back"></ion-icon>
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-icon size="large" routerLink="/indicateurs" name="arrow-back"></ion-icon>
     </ion-buttons>
     <ion-title class="ion-text-center">
       Cclean'Air
@@ -16,6 +18,7 @@
     <ion-toolbar>
       <ion-title class="ion-text-center">{{donneesLocales.commune.nom}}</ion-title>
       <ion-button routerLink="/communes/historique/{{codeInsee}}" slot="end" size="small">
+        <ion-icon slot="end" name="list"></ion-icon>
         <label>Historique</label>
       </ion-button>
     </ion-toolbar>
@@ -87,6 +90,7 @@
         <p class="ion-text-center">Une erreur est survenue, merci de réessayer ultérieurement</p>
       </ion-text>
       <ion-button routerLink="/indicateurs" expand="block">
+        <ion-icon slot="end" name="undo"></ion-icon>
         <ion-label>Retour</ion-label>
       </ion-button>
     </ion-toolbar>

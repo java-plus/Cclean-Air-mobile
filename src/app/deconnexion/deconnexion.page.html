@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title class="ion-text-center">Cclean'Air</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-header>
+            <ng-container *ngIf="!isErreurDeDeconnexion && !isDeconnexionOk">
+                <ion-text color="primary">
+                    <h1 class="ion-text-center">Déconnexion en cours ...</h1>
+                </ion-text>
+            </ng-container>
+            <ng-container *ngIf="isErreurDeDeconnexion && !isDeconnexionOk">
+                <ion-text color="danger">
+                    <p class="ion-text-center">La déconnexion a échoué. Veuillez vérifier votre
+                        connexion
+                        internet ou réessayer plus tard.</p>
+                </ion-text>
+            </ng-container>
+            <ng-container *ngIf="isDeconnexionOk">
+                <ion-text color="success">
+                    <h1 class="ion-text-center">Vous avez été déconnecté.</h1>
+                </ion-text>
+            </ng-container>
+        </ion-card-header>
+        <ion-card-content>
+            <ng-container *ngIf="isDeconnexionOk">
+                <ion-text>
+                    <p class="ion-text-center">Vous serez redirigé sur la page d'accueil d'ici 5
+                        secondes.</p>
+                </ion-text>
+            </ng-container>
+            <ion-button routerLink="/accueil-visiteur" class="ion-margin-top" expand="block">
+                <ion-icon slot="end" name="home"></ion-icon>
+                Aller à l'accueil
+            </ion-button>
+        </ion-card-content>
+    </ion-card>
+</ion-content>
