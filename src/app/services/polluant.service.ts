@@ -1,9 +1,13 @@
-import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import {Injectable} from '@angular/core';
+import {Observable, of} from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {environment} from '../../environments/environment';
+import {Plugins} from '@capacitor/core';
+import {flatMap, tap} from 'rxjs/operators';
+import {fromPromise} from 'rxjs/internal-compatibility';
 
 const URL_BACKEND = environment.backendUrl;
+const {Storage} = Plugins;
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +19,8 @@ export class PolluantService {
      * constructeur
      * @param http le client http
      */
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {
+    }
 
 
     /**
@@ -32,9 +37,20 @@ export class PolluantService {
             }),
             withCredentials: true
         };
-        console.log(URL_BACKEND)
 
-        return this.http.get<string[]>(URL_BACKEND.concat('/polluant/noms'), options);
+        return fromPromise(Storage.get({key: 'liste_polluants'}))
+            .pipe(
+                flatMap((data) => {
+                    if (data.value !== null) {
+                        return of(JSON.parse(data.value) as string[]);
+                    } else {
+                        return this.http.get<string[]>(URL_BACKEND.concat('/polluant/noms'), options)
+                            .pipe(tap((polluants) => {
+                                Storage.set({key: 'liste_polluants', value: JSON.stringify(polluants)});
+                            }));
+                    }
+                }));
+
 
     }
 }

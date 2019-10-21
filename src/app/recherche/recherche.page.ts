@@ -1,9 +1,14 @@
+
 import { Component, OnInit } from '@angular/core';
 import { CommuneCarte } from '../entities/CommuneCarte';
 import { CommuneService } from '../services/commune.service';
 import { CommuneRecherche } from '../entities/CommuneRecherche';
 import { ResultatRechercheCommune } from '../entities/ResultatRechercheCommune';
 import { ActivatedRoute } from '@angular/router';
+import { Plugins } from '@capacitor/core';
+
+const { Storage } = Plugins;
+
 
 
 @Component({
@@ -84,6 +89,8 @@ export class RecherchePage implements OnInit {
     }
 
     ngOnInit() {
+
+        this.resultatRecherche = null;
 
         /**
          * SI présence de paramètres dans l'url, initialisé les données pour cette commune
