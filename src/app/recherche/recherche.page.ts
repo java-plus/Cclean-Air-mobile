@@ -1,12 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {CommuneCarte} from '../entities/CommuneCarte';
-import {CommuneService} from '../services/commune.service';
-import {CommuneRecherche} from '../entities/CommuneRecherche';
-import {ResultatRechercheCommune} from '../entities/ResultatRechercheCommune';
-import {ActivatedRoute} from '@angular/router';
-import {Plugins} from '@capacitor/core';
 
-const {Storage} = Plugins;
+import { Component, OnInit } from '@angular/core';
+import { CommuneCarte } from '../entities/CommuneCarte';
+import { CommuneService } from '../services/commune.service';
+import { CommuneRecherche } from '../entities/CommuneRecherche';
+import { ResultatRechercheCommune } from '../entities/ResultatRechercheCommune';
+import { ActivatedRoute } from '@angular/router';
+import { Plugins } from '@capacitor/core';
+
+const { Storage } = Plugins;
+
 
 
 @Component({
@@ -22,6 +24,9 @@ export class RecherchePage implements OnInit {
     commune = new ResultatRechercheCommune();
     items: Array<CommuneCarte> = [];
 
+    icon: string;
+
+    iconColor: string;
 
     loading: boolean;
 
@@ -59,12 +64,24 @@ export class RecherchePage implements OnInit {
     submitSearch(commune: CommuneCarte) {
         this.loading = true;
         const communeRecherche = new CommuneRecherche();
-        communeRecherche.codeEtNom = {nomCommune: commune.nomCommune, codeInsee: commune.codeINSEE};
+        communeRecherche.codeEtNom = { nomCommune: commune.nomCommune, codeInsee: commune.codeINSEE };
 
         this.communeService.recupererDetailsCommune(communeRecherche).subscribe((resultat) => {
             this.resultatRecherche = resultat;
             this.items = [];
             this.loading = false;
+
+            if (this.resultatRecherche.meteo.humidite > 66) {
+                this.icon = 'rainy';
+                this.iconColor = 'medium';
+            } else {
+                this.icon = 'partly-sunny';
+                this.iconColor = 'medium';
+            }
+            if (this.resultatRecherche.meteo.ensoleillement > 66) {
+                this.icon = 'sunny';
+                this.iconColor = 'warning';
+            }
         }, () => {
             this.loading = false;
             this.items = [];
@@ -81,10 +98,22 @@ export class RecherchePage implements OnInit {
         this.route.queryParams.subscribe(params => {
             if (Object.entries(params).length > 0) {
                 this.recherche = new CommuneRecherche();
-                this.recherche.codeEtNom = {nomCommune: params.nomCommune, codeInsee: params.codeInsee};
+                this.recherche.codeEtNom = { nomCommune: params.nomCommune, codeInsee: params.codeInsee };
                 this.communeService.recupererDetailsCommune(this.recherche)
                     .subscribe((commune) => {
                         this.resultatRecherche = commune;
+
+                        if (this.resultatRecherche.meteo.humidite > 66) {
+                            this.icon = 'rainy';
+                            this.iconColor = 'medium';
+                        } else {
+                            this.icon = 'partly-sunny';
+                            this.iconColor = 'medium';
+                        }
+                        if (this.resultatRecherche.meteo.ensoleillement > 66) {
+                            this.icon = 'sunny';
+                            this.iconColor = 'warning';
+                        }
                     });
             }
         });
