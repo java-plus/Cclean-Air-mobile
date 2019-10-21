@@ -3,9 +3,9 @@
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-buttons slot="start">
+    <ion-buttons slot="start" *ngIf="modif==false && modifMdp==false && suppression==false && message==false">
       <ion-icon size="large" routerLink="/accueil" name="arrow-back"></ion-icon>
-    </ion-buttons>
+    </ion-buttons>    
     <ion-title class="ion-text-center">
       Cclean'Air
     </ion-title>
@@ -13,8 +13,8 @@
 </ion-header>
 
 <ion-content *ngIf="modif==false && modifMdp==false && suppression==false && message==false">
-  <ion-header no-border class="ion-padding ion-margin-top ion-text-center">
-    <ion-title>Mon Profil</ion-title>
+  <ion-header no-border class="ion-padding ion-margin-top">
+    <h1>Mon Profil</h1>
   </ion-header>
   <ion-row class="ion-padding">
     <ion-grid>
@@ -52,23 +52,23 @@
       </ion-row>
       <ion-row class="ion-padding-top">
         <ion-col size="12">
-          <ion-button class="button" shape="round" expand="block" (click)="modif = true">Modifier compte
+          <ion-button class="button" expand="block" (click)="modif = true">Modifier compte
             <ion-icon slot="end" name="clipboard"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12">
-          <ion-button class="button" shape="round" expand="block" (click)="modifMdp = true">Modifier mot de passe
+          <ion-button class="button" expand="block" (click)="modifMdp = true">Modifier mot de passe
             <ion-icon slot="end" name="finger-print"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12">
-          <ion-button class="button" shape="round" expand="block" color="danger" (click)="suppression = true">Supprimer
+          <ion-button class="button" expand="block" color="danger" (click)="suppression = true">Supprimer
             compte
-            <ion-icon slot="end" name="close-circle"></ion-icon>
+            <ion-icon slot="end" name="trash"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
@@ -77,8 +77,8 @@
 </ion-content>
 
 <ion-content *ngIf="modif==true && suppression==false">
-  <ion-header no-border class="ion-padding ion-margin-top ion-text-center">
-    <ion-title>Mon Profil</ion-title>
+  <ion-header no-border class="ion-padding ion-margin-top">
+    <h1>Mon Profil</h1>
   </ion-header>
   <ion-grid class="ion-padding-horizontal">
     <ion-row class="ion-padding-left">
@@ -100,23 +100,28 @@
               name="email" id="email"
               pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$">
             </ion-input>
-          </ion-item>
+          </ion-item>          
+          <ion-text *ngIf="email.invalid" color="danger"><p class="ion-text-center">Merci d'indiquer une adresse mail valide</p></ion-text>
           <ion-item>
             <ion-label position="floating">Commune</ion-label>
-            <ion-input type="text" class="w-100" required #commune="ngModel" [(ngModel)]="utilisateurTemp.commune"
-              name="commune" id="commune"></ion-input>
+
+            <ion-select [(ngModel)]="utilisateurTemp.commune" #commune="ngModel" cancelText="Annuler" name="commune"
+              id="commune" okText="Ok" placeholder="Commune" required class="ion-no-padding">
+              <ion-select-option *ngFor="let commune of listeCommunes" ngDefaultControl value="{{commune.nom}}">
+                {{commune.nom}}</ion-select-option>
+            </ion-select>
           </ion-item>
         </form>
         <ion-row class="ion-padding-top">
           <ion-col size="6">
-            <ion-button class="button" shape="round" expand="block" (click)="modif = false">Annuler
+            <ion-button class="button" expand="block" (click)="modif = false">Annuler
               <ion-icon slot="end" name="close-circle"></ion-icon>
             </ion-button>
           </ion-col>
           <ion-col size="6">
             <ion-button
               *ngIf="nom.value != '' && prenom.value != '' && email.value != '' && email.valid && commune.value != ''; else elseValidate"
-              class="button" shape="round" expand="block" (click)="modifierProfil()">Valider
+              class="button" expand="block" (click)="modifierProfil()">Valider
               <ion-icon slot="end" name="checkmark-circle"></ion-icon>
             </ion-button>
             <ng-template #elseValidate>
@@ -125,7 +130,7 @@
               </ion-button>
             </ng-template>
           </ion-col>
-          <ion-label *ngIf="error" color="danger">{{error}}</ion-label>
+          <ion-label *ngIf="error" color="danger" class="ion-text-center">{{error}}</ion-label>
         </ion-row>
       </ion-col>
     </ion-row>
@@ -133,8 +138,8 @@
 </ion-content>
 
 <ion-content *ngIf="modifMdp==true && suppression==false">
-  <ion-header no-border class="ion-padding ion-margin-top ion-text-center">
-    <ion-title>Mon Profil</ion-title>
+  <ion-header no-border class="ion-padding ion-margin-top">
+    <h1>Mon Profil</h1>
   </ion-header>
   <ion-grid class="ion-padding-horizontal">
     <ion-row class="ion-padding-left">
@@ -167,16 +172,16 @@
         </form>
         <ion-row class="ion-padding-top">
           <ion-col size="6">
-            <ion-button class="button" shape="round" expand="block" (click)="modifMdp = false">Annuler
+            <ion-button class="button" expand="block" (click)="modifMdp = false">Annuler
               <ion-icon slot="end" name="close-circle"></ion-icon>
             </ion-button>
           </ion-col>
           <ion-col size="6">
-            <ion-button class="button" shape="round" expand="block" (click)="modifierProfil()">Valider
+            <ion-button class="button" expand="block" (click)="modifierProfil()">Valider
               <ion-icon slot="end" name="checkmark-circle"></ion-icon>
             </ion-button>
           </ion-col>
-          <ion-label *ngIf="error" color="danger">{{error}}</ion-label>
+          <ion-label *ngIf="error" color="danger" class="ion-text-center">{{error}}</ion-label>
         </ion-row>
       </ion-col>
     </ion-row>
@@ -184,14 +189,15 @@
 </ion-content>
 
 <ion-content *ngIf="suppression==true">
-  <ion-title class="ion-padding-top ion-text-center" justify-content-center align-items-center style="height: 30%; flex-direction: column">Êtes-vous sûr de vouloir<br>supprimer votre compte
+  <ion-title class="ion-padding-top ion-text-center" justify-content-center align-items-center
+    style="height: 30%; flex-direction: column">Êtes-vous sûr de vouloir<br>supprimer votre compte
     ?<br>
     <ion-icon class="ion-padding-top" name="alert" size="large" color="danger"></ion-icon>
   </ion-title>
   <ion-row>
     <ion-col size="3"></ion-col>
     <ion-col size="6">
-      <ion-button class="button" shape="round" expand="block" (click)="validerSuppression()">Valider
+      <ion-button class="button" expand="block" (click)="validerSuppression()">Valider
         <ion-icon slot="end" name="checkmark-circle"></ion-icon>
       </ion-button>
     </ion-col>
@@ -199,7 +205,7 @@
   <ion-row>
     <ion-col size="3"></ion-col>
     <ion-col size="6">
-      <ion-button class="button" shape="round" expand="block" (click)="suppression=false">Annuler
+      <ion-button class="button" expand="block" (click)="suppression=false">Annuler
         <ion-icon slot="end" name="close-circle"></ion-icon>
       </ion-button>
     </ion-col>
@@ -213,7 +219,7 @@
   <ion-row>
     <ion-col size="3"></ion-col>
     <ion-col size="6">
-      <ion-button class="button" shape="round" expand="block" (click)="message=false">Ok
+      <ion-button class="button" expand="block" (click)="message=false">Ok
       </ion-button>
     </ion-col>
   </ion-row>

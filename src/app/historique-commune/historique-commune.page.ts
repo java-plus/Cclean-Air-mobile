@@ -16,82 +16,87 @@ import {Plugins} from '@capacitor/core';
 const {Storage} = Plugins;
 
 @Component({
-    selector: 'app-historique-commune',
-    templateUrl: './historique-commune.page.html',
-    styles: [],
+  selector: 'app-historique-commune',
+  templateUrl: './historique-commune.page.html',
+  styles: [],
 })
 export class HistoriqueCommunePage implements OnInit {
 
-    @ViewChild('lineCanvas', {static: false}) lineCanvas: ElementRef;
+  @ViewChild('lineCanvas', { static: false }) lineCanvas: ElementRef;
 
-    @ViewChild('formulaire', {static: false}) formulaire: NgForm;
+  @ViewChild('formulaire', { static: false }) formulaire: NgForm;
 
-    codeInsee: string;
+  codeInsee: string;
 
-    lineChart: Chart;
+  lineChart: Chart;
 
-    donneesHistorique: DonneesLocalesHistorique[] = [];
+  donneesHistorique: DonneesLocalesHistorique[] = [];
 
-    myDate = new Date().toISOString();
+  myDate = new Date().toISOString();
 
-    donneesRecherchees = new DonneesLocalesRecherchees(null, null, '');
-    commune = new CommuneDtoVisualisation('', null);
-    meteo = new ConditionMeteoDtoVisualisation(null, null, null);
-    polluant: PolluantDtoVisualisation[] = [];
+  date = new Date();
 
-    unite = '';
+  datePassee = new Date();
 
-    donneesLocales: DonneesLocalesDto = new DonneesLocalesDto(this.commune,
-        this.polluant, this.meteo, null);
+  myLastDate: string;
 
-    listePolluants: string[];
+  donneesRecherchees = new DonneesLocalesRecherchees(null, null, '');
+  commune = new CommuneDtoVisualisation('', null);
+  meteo = new ConditionMeteoDtoVisualisation(null, null, null);
+  polluant: PolluantDtoVisualisation[] = [];
 
-    affichageFormulaire = true;
+  unite = '';
 
-    dataTab: number[] = [];
+  donneesLocales: DonneesLocalesDto = new DonneesLocalesDto(this.commune,
+    this.polluant, this.meteo, null);
 
-    labels: string[] = [];
+  listePolluants: string[];
 
-    polluantVide = false;
+  affichageFormulaire = true;
 
-    donnneesVides = false;
+  dataTab: number[] = [];
 
-    erreur: string;
+  labels: string[] = [];
 
-    constructor(private route: ActivatedRoute, private communeService: CommuneService, private polluantService: PolluantService, private datepipe: DatePipe) {
-        this.codeInsee = route.snapshot.paramMap.get('codeInsee');
-    }
+  polluantVide = false;
+
+  donnneesVides = false;
+
+  erreur: string;
+
+  constructor(private route: ActivatedRoute, private communeService: CommuneService, private polluantService: PolluantService, private datepipe: DatePipe) {
+    this.codeInsee = route.snapshot.paramMap.get('codeInsee');
+  }
 
 
-    ngOnInit() {
-        this.route.paramMap.subscribe((params: ParamMap) => {
-            this.codeInsee = params.get('codeInsee');
-            this.polluantService.recupererPolluant()
-                .subscribe(
-                    donnees => {
-                        this.listePolluants = donnees;
-                        Storage.get({key: 'liste_polluants'}).then((data) => {
-                            if (data.value === null) {
-                                Storage.set({key: 'liste_polluants', value: JSON.stringify(donnees)});
-                            }
-                        });
-                    });
+  ngOnInit() {
 
-            this.communeService.afficherDonneesLocales(this.codeInsee).subscribe(
-                donnees => {
-                    this.donneesLocales = donnees;
-                });
+    this.datePassee.setDate(this.date.getDate() - 7);
+    this.myLastDate = this.datePassee.toISOString();
 
-        })
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.codeInsee = params.get('codeInsee');
+      this.polluantService.recupererPolluant()
+        .subscribe(
+          donnees => {
+            this.listePolluants = donnees;
+          });
 
-    }
+      this.communeService.afficherDonneesLocales(this.codeInsee).subscribe(
+        donnees => {
+          this.donneesLocales = donnees;
+        });
 
-    /**
-     *Méthode qui récupère l'historique en appelant le back, et qui le renvoie sous forme de graphique, puis reset le formulaire
-     *
-     * @memberof HistoriqueCommunePage
-     */
-    rechercheHistorique() {
+    })
+
+  }
+
+  /**
+   *Méthode qui récupère l'historique en appelant le back, et qui le renvoie sous forme de graphique, puis reset le formulaire
+   *
+   * @memberof HistoriqueCommunePage
+   */
+  rechercheHistorique() {
 
         if (this.donneesRecherchees.dateDebut > this.donneesRecherchees.dateFin) {
             this.erreur = "Veuillez vérifier les dates saisies"

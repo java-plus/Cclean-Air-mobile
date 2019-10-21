@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UtilisateurProfil } from '../entities/UtilisateurProfil';
 import { Router } from '@angular/router';
 import { ProfilService } from '../services/profil.service';
+import { Commune } from '../entities/commune';
+import { CommuneService } from '../services/commune.service';
 
 @Component({
   selector: 'app-mon-profil',
@@ -12,18 +14,21 @@ export class MonProfilPage implements OnInit {
 
   utilisateurInitial = new UtilisateurProfil('', '', '', '', [], null, '', '', '');
   utilisateurTemp = new UtilisateurProfil('', '', '', '', [], null, '', '', '');
+  communes = new Commune('', null, '', null, null);
   error: string;
   modif: boolean = false;
   modifMdp: boolean = false;
   suppression: boolean = false;
   message: boolean = false;
+  isErreurRecuperationCommunes: boolean;
+  listeCommunes: Commune[];
 
   /**
    * Constructeur
    * @param profilService : ProfilService
    * @param router : Router
    */
-  constructor(private router: Router, private profilService: ProfilService) { }
+  constructor(private router: Router, private profilService: ProfilService, private communeService: CommuneService) { }
 
   /**
    * Permet d'afficher les données de l'utilisateur à l'initialisation de la page Profil.
@@ -32,6 +37,15 @@ export class MonProfilPage implements OnInit {
     this.profilService.visualiserProfil().subscribe(utilisateurCo => {
       this.utilisateurInitial = utilisateurCo.clone();
       this.utilisateurTemp = utilisateurCo.clone();
+
+      this.communeService.recupererCommunes()
+            .subscribe(
+                liste => {
+                    this.isErreurRecuperationCommunes = false;
+                    this.listeCommunes = liste;
+                },
+                () => this.isErreurRecuperationCommunes = true
+            );
     });
   }
 
