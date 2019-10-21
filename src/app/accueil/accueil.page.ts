@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Plugins} from '@capacitor/core';
 import {PositionService} from './position.service';
 import {CommuneCarte} from '../entities/CommuneCarte';
-import {flatMap} from 'rxjs/operators';
+import {flatMap, timeout} from 'rxjs/operators';
 import {fromPromise} from 'rxjs/internal-compatibility';
 import {Router} from '@angular/router';
 import {CommuneRecherche} from '../entities/CommuneRecherche';
@@ -63,7 +63,9 @@ export class AccueilPage implements OnInit {
     async rechercheParPosition() {
         this.loading = true;
 
-        fromPromise(Geolocation.getCurrentPosition())
+        fromPromise(Geolocation.getCurrentPosition(
+            {timeout: 30000}
+        ))
             .pipe(
                 flatMap(posInfos => this.positionService
                     .recupererCommuneLaPlusProche(posInfos))
@@ -90,7 +92,7 @@ export class AccueilPage implements OnInit {
      * Renvoie l'utilisateur vers la page de recherche détaillée.
      */
     rechercheDetaillee() {
-        this.router.navigate(['/recherche']);
+       this.router.navigate(['/recherche']);
     }
 
     ngOnInit() {
