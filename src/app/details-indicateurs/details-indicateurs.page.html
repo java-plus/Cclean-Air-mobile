@@ -14,68 +14,66 @@
 
 <ion-content>
 
+
   <ng-container *ngIf="!affichageErreur">
-    <ion-toolbar>
-      <ion-title class="ion-text-center">{{donneesLocales.commune.nom}}</ion-title>
-      <ion-button routerLink="/communes/historique/{{codeInsee}}" slot="end" size="small">
-        <ion-icon slot="end" name="list"></ion-icon>
-        <label>Historique</label>
-      </ion-button>
-    </ion-toolbar>
+    <ion-card>
+      <ion-card-content>
+        <ion-card-title>{{donneesLocales.commune.nom | uppercase}}</ion-card-title>
+        <ion-card-subtitle>({{donneesLocales.commune.nbHabitants}} habitants)</ion-card-subtitle>
 
+        <ion-button routerLink="/communes/historique/{{codeInsee}}" slot="end" size="small">
+          <ion-icon slot="end" name="list"></ion-icon>
+          <label>Historique</label>
+        </ion-button>
+      </ion-card-content>
 
-    <ion-toolbar class="ion-text-center">
-      Le {{donneesLocales.date | date:'dd/MM/yyyy à HH:mm'}}
-    </ion-toolbar>
+      <ion-card-content>
+        <ion-card-subtitle>
+          CONDITIONS METEOROLOGIQUES
+        </ion-card-subtitle>
+        <ion-row>
+          <ion-item>
+            <ion-col>
+              <ion-item lines="none">
+                <ion-icon name="{{icon}}" slot="start" size="large" style="zoom:3.0;" color="{{iconColor}}"></ion-icon>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item lines="none">
+                <ion-icon name="thermometer" slot="start" size="large" color="danger"></ion-icon>
+                <ion-label> {{donneesLocales.conditionMeteo.temperature | number: '1.0-0'}} °C</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-icon name="sunny" slot="start" size="large" color="warning"></ion-icon>
+                <ion-label> {{donneesLocales.conditionMeteo.ensoleillement}} %</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-icon name="water" slot="start" size="large" color="primary"></ion-icon>
+                <ion-label> {{donneesLocales.conditionMeteo.humidite}} %</ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-item>
+        </ion-row>
+      </ion-card-content>
 
+      <ion-card-content>
+        <ion-card-subtitle>
+          POLLUTION
+        </ion-card-subtitle>
 
-    <ion-list>
-      <ion-list-header>
-        Polluants
-      </ion-list-header>
+        <ion-item-sliding>
+          <ion-item *ngFor="let polluant of donneesLocales.listePolluants">
+            <ion-label>{{polluant.nom}}</ion-label>
+            <ion-note slot="end" color="dark">{{polluant.valeur}} {{polluant.unite}}</ion-note>
+          </ion-item>
+        </ion-item-sliding>
 
-      <ion-item-sliding>
-        <ion-item *ngFor="let polluant of donneesLocales.listePolluants">
-          <ion-label>{{polluant.nom}}</ion-label>
-          <ion-note slot="end" color="dark">{{polluant.valeur}} {{polluant.unite}}</ion-note>
-        </ion-item>
-      </ion-item-sliding>
+      </ion-card-content>
 
-      <ion-list-header class="ion-margin-top">
-        Population
-      </ion-list-header>
-
-      <ion-item-sliding>
-        <ion-item>
-          <ion-label>{{donneesLocales.commune.nbHabitants}} habitants</ion-label>
-        </ion-item>
-      </ion-item-sliding>
-
-      <ion-list-header class="ion-margin-top">
-        Conditions Météo
-
-      </ion-list-header>
-
-      <ion-item-sliding>
-        <ion-item lines="none">
-          <ion-icon name="{{icon}}" slot="start" color="medium"></ion-icon>
-        </ion-item>
-        <ion-item>
-          <ion-label>Humidité</ion-label>
-          <ion-note slot="end" color="dark">{{donneesLocales.conditionMeteo.humidite}} %</ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>Ensoleillemnet</ion-label>
-          <ion-note slot="end" color="dark">{{donneesLocales.conditionMeteo.ensoleillement}} %</ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>Température</ion-label>
-          <ion-note slot="end" color="dark">{{donneesLocales.conditionMeteo.temperature | number: '1.0-0'}} °C
-          </ion-note>
-        </ion-item>
-      </ion-item-sliding>
-    </ion-list>
+    </ion-card>
   </ng-container>
+
+
 
   <ng-container *ngIf="affichageErreur">
     <ion-toolbar>

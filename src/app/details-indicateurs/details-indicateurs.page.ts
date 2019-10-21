@@ -29,6 +29,8 @@ export class DetailsIndicateursPage implements OnInit {
 
   icon: string;
 
+  iconColor: string;
+
   constructor(private route: ActivatedRoute, private communeService: CommuneService) { this.codeInsee = route.snapshot.paramMap.get('codeInsee'); }
 
 
@@ -47,12 +49,17 @@ export class DetailsIndicateursPage implements OnInit {
 
           if (this.donneesLocales.conditionMeteo.humidite > 66) {
             this.icon = 'rainy';
+            this.iconColor = 'medium';
           } else {
             this.icon = 'partly-sunny';
+            this.iconColor = 'medium';
           }
           if (this.donneesLocales.conditionMeteo.ensoleillement > 66) {
             this.icon = 'sunny';
+            this.iconColor = 'warning';
           }
+
+          console.log(this.icon)
         }, err => {
           this.erreur = err.error;
           this.affichageErreur = true;
