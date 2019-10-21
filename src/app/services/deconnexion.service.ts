@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
+import {tap} from 'rxjs/operators';
+import {Plugins} from "@capacitor/core";
+
+const {Storage} = Plugins;
 
 const URL_BACKEND = environment.backendUrl;
 
@@ -17,6 +21,8 @@ export class DeconnexionService {
       withCredentials: true
     };
 
-    return this.http.post(`${URL_BACKEND}/logout`, {}, httpOptions);
+    return this.http.post(`${URL_BACKEND}/logout`, {}, httpOptions)
+        .pipe(
+            tap(() => Storage.clear()));
   }
 }

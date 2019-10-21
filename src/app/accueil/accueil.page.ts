@@ -8,6 +8,7 @@ import {fromPromise} from 'rxjs/internal-compatibility';
 import {Router} from '@angular/router';
 import {CommuneRecherche} from '../entities/CommuneRecherche';
 import {ProfilService} from '../services/profil.service';
+import {MenuController} from "@ionic/angular";
 
 
 const {Geolocation} = Plugins;
@@ -40,7 +41,8 @@ export class AccueilPage implements OnInit {
     communeRecherche: CommuneRecherche;
 
 
-    constructor(private positionService: PositionService, private router: Router, private profilService: ProfilService) {
+    constructor(private positionService: PositionService, private router: Router, private profilService: ProfilService,
+                private menu: MenuController) {
     }
 
     /**
@@ -73,7 +75,7 @@ export class AccueilPage implements OnInit {
     }
 
     ngOnInit() {
-
+        this.menu.enable(true);
         this.profilService.visualiserProfil().subscribe((user) => {
             this.utilisateur = user.prenom.toString().concat(' ').concat(user.nom.toString());
         });

@@ -62,14 +62,9 @@ export class RecherchePage implements OnInit {
         communeRecherche.codeEtNom = {nomCommune: commune.nomCommune, codeInsee: commune.codeINSEE};
 
         this.communeService.recupererDetailsCommune(communeRecherche).subscribe((resultat) => {
-            Storage.set({key: 'donnees_locales'.concat(resultat.nom), value: JSON.stringify(resultat)});
             this.resultatRecherche = resultat;
             this.loading = false;
         }, () => {
-            Storage.get({key: 'donnees_locales'.concat(this.recherche.codeEtNom.nomCommune)}).then((details) => {
-                console.log('chargé depuis le cache');
-                this.resultatRecherche = JSON.parse(details.value);
-            });
             this.loading = false;
         });
     }

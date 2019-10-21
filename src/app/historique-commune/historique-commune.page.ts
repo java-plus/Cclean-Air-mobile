@@ -72,7 +72,6 @@ export class HistoriqueCommunePage implements OnInit {
                         this.listePolluants = donnees;
                         Storage.get({key: 'liste_polluants'}).then((data) => {
                             if (data.value === null) {
-                                console.log('mise en cache');
                                 Storage.set({key: 'liste_polluants', value: JSON.stringify(donnees)});
                             }
                         });
