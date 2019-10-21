@@ -29,7 +29,7 @@ export class DeconnexionPage implements OnInit {
     }
 
     ngOnInit(): void {
-        this.menu.enable(false);
+        this.menu.enable(true);
         this.deconnexionService.deconnecter().subscribe(
             () => {
                 this.isDeconnexionOk = true;
