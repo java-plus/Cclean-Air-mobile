@@ -3,7 +3,7 @@ import {Observable, of} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Plugins} from '@capacitor/core';
-import {flatMap} from 'rxjs/operators';
+import {flatMap, tap} from 'rxjs/operators';
 import {fromPromise} from 'rxjs/internal-compatibility';
 
 const URL_BACKEND = environment.backendUrl;
@@ -44,7 +44,10 @@ export class PolluantService {
                     if (data.value !== null) {
                         return of(JSON.parse(data.value) as string[]);
                     } else {
-                        return this.http.get<string[]>(URL_BACKEND.concat('/polluant/noms'), options);
+                        return this.http.get<string[]>(URL_BACKEND.concat('/polluant/noms'), options)
+                            .pipe(tap((polluants) => {
+                                Storage.set({key: 'liste_polluants', value: JSON.stringify(polluants)});
+                            }));
                     }
                 }));
 
