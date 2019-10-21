@@ -45,7 +45,6 @@ export class CommuneService {
         return this.http.get<DonneesLocalesDto>(URL, {withCredentials: true})
             .pipe(
                 tap(donnees => {
-
                     this.subDonneesLocales.next(donnees);
                 })
             );

@@ -38,7 +38,12 @@ export class ProfilService {
         return fromPromise(Storage.get({key: 'visualiser_profil'}))
             .pipe(
                 flatMap((data) => {
-                        if (data.value !== null) {
+                        if (data.value !== null && Storage.get({key: 'exp_profil'})
+                            .then((date) => {
+                                const dateCache: Date = JSON.parse(date.value);
+                                console.log(dateCache);
+                                console.log(new Date());
+                            })) {
                             return of<UtilisateurProfil>(JSON.parse(data.value));
 
                         } else {
@@ -47,6 +52,7 @@ export class ProfilService {
                                 .pipe(
                                     tap(profil => {
                                         Storage.set({key: 'visualiser_profil', value: JSON.stringify(profil)});
+                                        Storage.set({key: 'exp_profil', value: JSON.stringify(new Date())});
                                     })
                                 );
                         }
