@@ -57,9 +57,19 @@
       </ion-card-content>
 
       <ion-card-content>
-        <ion-card-subtitle>
+        <ion-card-subtitle class="ion-margin-bottom">
           POLLUTION
         </ion-card-subtitle>
+
+        <ion-text color="success" *ngIf="!alerte">
+          <h2 class="ion-text-center">Aucune alerte pollution</h2>
+        </ion-text>
+        <ion-item lines="none" *ngIf="alerte" class="ion-text-center">
+          <ion-icon name="alert" slot="start" size="large" color="danger"></ion-icon>
+          <ion-label color="danger"> Alerte pollution en cours</ion-label>
+        </ion-item>
+
+
 
         <ion-item-sliding>
           <ion-item *ngFor="let polluant of donneesLocales.listePolluants">
