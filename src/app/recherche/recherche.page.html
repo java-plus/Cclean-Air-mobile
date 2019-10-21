@@ -65,13 +65,6 @@
                     POLLUTION
                 </ion-card-subtitle>
 
-                <ion-text color="success" *ngIf="!resultatRecherche.niveauAlerte">
-                    <h2 class="ion-text-center">Aucune alerte pollution</h2>
-                </ion-text>
-                <ion-text color="danger" *ngIf="resultatRecherche.niveauAlerte">
-                    <h2 class="ion-text-center">Alerte Pollution : {{resultatRecherche.niveauAlerte.nom}}</h2>
-                </ion-text>
-
                 <ion-item-sliding>
                     <ion-item *ngFor="let polluant of resultatRecherche.polluants">
                         <ion-label>{{polluant.nom}}</ion-label>
