@@ -33,8 +33,8 @@ export class CreerIndicateursPage implements OnInit {
 
   /**
    * constructeur
-   * @param dataService
-   * @param indicateursService
+   * @param indicateursService : IndicateursService
+   * @param router : Router
    */
   constructor(private indicateursService: IndicateursService, private router: Router) { }
 
@@ -42,7 +42,7 @@ export class CreerIndicateursPage implements OnInit {
 
   /**
    * méthode qui permet de créer un indicateur
-   * @param indicateurCreation
+   * @param indicateurCreation : IndicateurCreation
    */
   creerIndicateur(indicateurCreation: IndicateurCreation) {
 
@@ -51,7 +51,7 @@ export class CreerIndicateursPage implements OnInit {
     }
     this.indicateursService.enregistrerIndicateur(indicateurCreation).subscribe(
       () => {
-        this.router.navigate(["/indicateurs"]);
+        this.router.navigate(['/indicateurs']);
       },
       err => {
         this.messageErreur = err.error;
