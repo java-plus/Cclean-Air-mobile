@@ -1,8 +1,7 @@
-import {AfterContentInit, Component, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {DeconnexionService} from '../services/deconnexion.service';
 import {MenuController} from '@ionic/angular';
 import {Router} from '@angular/router';
-import {timeout} from 'rxjs/operators';
 
 /**
  * Page gérant la déconnexion de l'utilisateur.
@@ -19,8 +18,8 @@ export class DeconnexionPage implements OnInit {
 
     constructor(private deconnexionService: DeconnexionService,
                 private menu: MenuController,
-                private router: Router) {
-        this.menu.enable(false);
+                private router: Router,
+                private zone: NgZone) {
     }
 
     /**
@@ -31,13 +30,17 @@ export class DeconnexionPage implements OnInit {
     }
 
     ngOnInit(): void {
-        this.menu.enable(false);
-        this.deconnexionService.deconnecter().subscribe(
-            () => {
-                this.isDeconnexionOk = true;
-                this.redigerVersAuthentification();
-            },
-            () => this.isErreurDeDeconnexion = true
-        );
+        this.zone.run(() => {
+            this.deconnexionService.deconnecter().subscribe(
+                () => {
+                    this.menu.enable(false);
+                    this.isDeconnexionOk = true;
+                    this.redigerVersAuthentification();
+                    // rechargement de la page dans le cas d'un bug de redirection
+                    document.location.reload();
+                },
+                () => this.isErreurDeDeconnexion = true
+            );
+        });
     }
 }
