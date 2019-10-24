@@ -13,9 +13,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-
-
-
 @NgModule({
     declarations: [AppComponent],
     entryComponents: [],

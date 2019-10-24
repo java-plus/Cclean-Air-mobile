@@ -2,12 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {Plugins} from '@capacitor/core';
 import {PositionService} from './position.service';
 import {CommuneCarte} from '../entities/CommuneCarte';
-import {flatMap, timeout} from 'rxjs/operators';
+import {flatMap} from 'rxjs/operators';
 import {fromPromise} from 'rxjs/internal-compatibility';
 import {Router} from '@angular/router';
 import {CommuneRecherche} from '../entities/CommuneRecherche';
 import {ProfilService} from '../services/profil.service';
-import {MenuController} from "@ionic/angular";
+import {MenuController} from '@ionic/angular';
+import {NotificationService} from '../services/notification.service';
+import {CommuneAlerte} from '../entities/commune-alerte';
 
 
 const {Geolocation} = Plugins;
@@ -44,6 +46,8 @@ export class AccueilPage implements OnInit {
 
     isErreurRechercheParPosition: boolean;
 
+    alertes: CommuneAlerte[];
+
     /**
      * Constructeur
      * @param positionService : PositionService
@@ -53,7 +57,8 @@ export class AccueilPage implements OnInit {
     constructor(private positionService: PositionService,
                 private router: Router,
                 private profilService: ProfilService,
-                private menu: MenuController) {
+                private menu: MenuController,
+                private notificationService: NotificationService) {
     }
 
     /**
@@ -92,7 +97,7 @@ export class AccueilPage implements OnInit {
      * Renvoie l'utilisateur vers la page de recherche détaillée.
      */
     rechercheDetaillee() {
-       this.router.navigate(['/recherche']);
+        this.router.navigate(['/recherche']);
     }
 
     ngOnInit() {
@@ -102,6 +107,9 @@ export class AccueilPage implements OnInit {
                 this.utilisateur = user.prenom.toString().concat(' ')
                     .concat(user.nom.toString());
             });
+        this.notificationService.recupererAlertesPollutionPourTousIndicateurs().subscribe(
+            (alertes => this.alertes = alertes)
+        );
     }
 
 }
