@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
 import {DeconnexionService} from '../services/deconnexion.service';
 import {MenuController} from '@ionic/angular';
 import {Router} from '@angular/router';
+import {timeout} from 'rxjs/operators';
 
 /**
  * Page gérant la déconnexion de l'utilisateur.
@@ -13,19 +14,20 @@ import {Router} from '@angular/router';
 })
 export class DeconnexionPage implements OnInit {
 
-    isErreurDeDeconnexion: boolean;
-    isDeconnexionOk: boolean;
+    isErreurDeDeconnexion = false;
+    isDeconnexionOk = false;
 
     constructor(private deconnexionService: DeconnexionService,
                 private menu: MenuController,
                 private router: Router) {
+        this.menu.enable(false);
     }
 
     /**
      * Méthode redirigeant vers la page d'accueil.
      */
-    redigerVersAccueilVisiter(): Promise<boolean> {
-        return this.router.navigate(['/accueil-visiteur']);
+    redigerVersAuthentification(): void {
+        this.router.navigate(['/authentification']);
     }
 
     ngOnInit(): void {
@@ -33,8 +35,7 @@ export class DeconnexionPage implements OnInit {
         this.deconnexionService.deconnecter().subscribe(
             () => {
                 this.isDeconnexionOk = true;
-                window.setTimeout(() => this.redigerVersAccueilVisiter(),
-                    5000);
+                this.redigerVersAuthentification();
             },
             () => this.isErreurDeDeconnexion = true
         );

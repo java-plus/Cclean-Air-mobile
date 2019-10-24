@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {AuthentificationService} from './services/authentification.service';
 import {catchError, map} from 'rxjs/operators';
 
@@ -19,6 +19,6 @@ export class ConnexionGuard implements CanActivate {
         Promise<boolean | UrlTree> | boolean | UrlTree {
         return this.authentificationService.verificationEstAuthentifie()
             .pipe(map(() => true),
-                catchError(() => this.router.navigate(['/authentification'])));
+                catchError(() => of(this.router.parseUrl('/authentification'))));
     }
 }
