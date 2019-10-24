@@ -1,5 +1,5 @@
-import {PolluantDto} from './PolluantDto';
-import {ConditionMeteo} from './ConditionMeteo';
+import { PolluantDto } from './PolluantDto';
+import { ConditionMeteo } from './ConditionMeteo';
 
 export class ResultatRechercheCommune {
 
@@ -8,7 +8,7 @@ export class ResultatRechercheCommune {
   public polluants: Array<PolluantDto>;
   public nbHabitants: number;
   public meteo: ConditionMeteo;
-  public  niveauAlerte: PolluantDto;
+  public niveauAlerte: PolluantDto;
   public date: Date;
   public heure: number;
 
