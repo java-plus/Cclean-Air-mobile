@@ -165,13 +165,14 @@ export class HistoriqueCommunePage implements OnInit {
                   },
                   tooltips: {
                     callbacks: {
-                      label: function(tooltipItem) {
+                      label: function (tooltipItem) {
                         return tooltipItem.yLabel;
                       }
                     }
                   }
                 }
               });
+              this.loading = false;
             });
             if (this.polluantVide === false) {
               this.affichageFormulaire = false;
@@ -183,7 +184,7 @@ export class HistoriqueCommunePage implements OnInit {
                 "Il n'y a pas de données pour les dates et polluant choisis";
             }
             this.formulaire.resetForm();
-            this.loading = false;
+
           },
           err => {
             this.erreur = err.error;
