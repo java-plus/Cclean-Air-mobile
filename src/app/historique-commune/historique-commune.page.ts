@@ -107,7 +107,7 @@ export class HistoriqueCommunePage implements OnInit {
     if (this.donneesRecherchees.dateDebut > this.donneesRecherchees.dateFin) {
       this.erreur = "Veuillez vérifier les dates saisies";
     } else {
-        this.loading = true;
+      this.loading = true;
       this.communeService
         .afficherHistorique(this.codeInsee, this.donneesRecherchees)
         .subscribe(
@@ -183,7 +183,7 @@ export class HistoriqueCommunePage implements OnInit {
                 "Il n'y a pas de données pour les dates et polluant choisis";
             }
             this.formulaire.resetForm();
-            this.loading = false; 
+            this.loading = false;
           },
           err => {
             this.erreur = err.error;
