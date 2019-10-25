@@ -26,13 +26,8 @@
             </ng-container>
         </ion-card-header>
         <ion-card-content>
-            <ng-container *ngIf="isDeconnexionOk">
-                <ion-text>
-                    <p class="ion-text-center">Vous serez redirigé sur la page d'accueil d'ici 5
-                        secondes.</p>
-                </ion-text>
-            </ng-container>
-            <ion-button routerLink="/accueil-visiteur" class="ion-margin-top" expand="block">
+            <ion-button routerLink="/authentification" class="ion-margin-top"
+                        expand="block">
                 <ion-icon slot="end" name="home"></ion-icon>
                 Aller à l'accueil
             </ion-button>

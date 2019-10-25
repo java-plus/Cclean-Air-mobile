@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UtilisateurAuthentification } from '../entities/utilisateur-authentification';
 import { NgForm } from '@angular/forms';
 import { AuthentificationService } from '../services/authentification.service';
+import {MenuController} from '@ionic/angular';
 
 /**
  * Composant gérant la page d'authentification.
@@ -22,10 +23,15 @@ export class AuthentificationPage implements OnInit {
    * Constructeur
    * @param service : AuthentificationService
    * @param router : Router
+   * @param menu : MenuController
    */
-  constructor(private service: AuthentificationService, private router: Router) { }
+  constructor(private service: AuthentificationService,
+              private router: Router,
+              private menu: MenuController) { }
 
   ngOnInit() {
+    this.menu.enable(false);
+    this.statutErreur = false;
   }
 
   /**

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthentificationService} from '../services/authentification.service';
 import {Router} from '@angular/router';
+import {MenuController} from '@ionic/angular';
 
 /**
  * Classe gérant la page d'accueil d'un visiteur (utilisateur non authentifié).
@@ -16,9 +17,11 @@ export class AccueilVisiteurPage implements OnInit {
    * Constructeur
    * @param authenticationService : AuthentificationService
    * @param router : Router
+   * @param menu : MenuController
    */
     constructor(private authenticationService: AuthentificationService,
-                private router: Router) {
+                private router: Router,
+                private menu: MenuController) {
     }
 
   /**
@@ -33,7 +36,8 @@ export class AccueilVisiteurPage implements OnInit {
     }
 
     ngOnInit(): void {
-        this.renvoyerVersAccueilSiDejaAuthentifie();
+      this.menu.enable(false);
+      this.renvoyerVersAccueilSiDejaAuthentifie();
     }
 
 }
