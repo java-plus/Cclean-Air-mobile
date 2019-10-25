@@ -32,11 +32,8 @@
     "@ionic/angular": "^4.7.1",
     "@types/leaflet": "^1.5.3",
     "chart.js": "^2.8.0",
-<<<<<<< HEAD
     "cordova-android": "^8.1.0",
-=======
     "cordova-plugin-local-notification": "^0.9.0-beta.2",
->>>>>>> 874a832d6bb346c65be9309ebe35457299e91f10
     "core-js": "^2.5.4",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
