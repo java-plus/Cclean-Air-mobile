@@ -57,7 +57,8 @@ const routes: Routes = [
     },
     {
         path: 'deconnexion',
-        loadChildren: () => import('./deconnexion/deconnexion.module').then(m => m.DeconnexionPageModule)
+        loadChildren: () => import('./deconnexion/deconnexion.module').then(m => m.DeconnexionPageModule),
+        canActivate: [ConnexionGuard]
     }
 ];
 

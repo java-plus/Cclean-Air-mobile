@@ -24,30 +24,49 @@
         <ion-row *ngIf="isErreurRechercheParPosition">
             <ion-text class="ion-text-center" color="danger">
                 <p>
-
                     Une erreur s'est produite dans la récupération des
                     données locales. Veuillez vous reconnecter ou réessayer
                     plus tard.
-
                 </p>
             </ion-text>
         </ion-row>
+        <ng-container *ngIf="alertes">
+            <ion-card>
+                <ion-card-content>
+                    <ion-text class="ion-text-center ion-padding-top"
+                              color="dark">
+                        <p>
+                            <em>
+                                Communes suivies :
+                                <strong>
+                                    {{alertes.length}} alerte(s)
+                                </strong>
+                                pollution
+                            </em>
+                        </p>
+                    </ion-text>
+                </ion-card-content>
+            </ion-card>
+        </ng-container>
         <ion-row class="ion-justify-content-center ion-margin-top">
 
             <ion-col class="ion-text-center" size="12">
 
-                <ion-button (click)="rechercheParPosition()" class="ion-text-center" color="primary" expand="block">
+                <ion-button (click)="rechercheParPosition()"
+                            class="ion-text-center" color="primary"
+                            expand="block">
                     Qualité de l'air pour ma position
-                    <ion-icon slot="end" name="compass"></ion-icon>
+                    <ion-icon name="compass" slot="end"></ion-icon>
                 </ion-button>
             </ion-col>
         </ion-row>
         <ion-row class="ion-justify-content-center">
 
             <ion-col class="ion-text-center" size="12">
-                <ion-button class="ion-text-center" color="primary" expand="block" routerLink="/indicateurs">
+                <ion-button class="ion-text-center" color="primary"
+                            expand="block" routerLink="/indicateurs">
                     Mes indicateurs enregistrés
-                    <ion-icon slot="end" name="filing"></ion-icon>
+                    <ion-icon name="filing" slot="end"></ion-icon>
                 </ion-button>
             </ion-col>
         </ion-row>
@@ -55,9 +74,11 @@
 
             <ion-col class="ion-text-center" size="12">
 
-                <ion-button (click)="rechercheDetaillee()" class="ion-text-center" color="primary" expand="block">
+                <ion-button (click)="rechercheDetaillee()"
+                            class="ion-text-center" color="primary"
+                            expand="block">
                     Recherche personnalisée
-                    <ion-icon slot="end" name="search"></ion-icon>
+                    <ion-icon name="search" slot="end"></ion-icon>
                 </ion-button>
             </ion-col>
         </ion-row>
