@@ -30,6 +30,7 @@ export class DeconnexionPage implements OnInit {
     }
 
     ngOnInit(): void {
+
         this.zone.run(() => {
             this.deconnexionService.deconnecter().subscribe(
                 () => {
