@@ -94,26 +94,26 @@
   </ng-container>
 
   <ng-container *ngIf="suppressionIndicateurs == true">
-      <ion-content>
-        <ion-title class="ion-padding-top ion-text-center" justify-content-center align-items-center
-          style="height: 30%; flex-direction: column">Êtes-vous sûr de vouloir<br>supprimer l'indicateur ?<br>
-          <ion-icon class="ion-padding-top" name="alert" size="large" color="danger"></ion-icon>
-        </ion-title>
+    <ion-content>
+      <ion-title class="ion-padding-top ion-text-center" justify-content-center align-items-center
+        style="height: 30%; flex-direction: column">Êtes-vous sûr de vouloir<br>supprimer l'indicateur ?<br>
+        <ion-icon class="ion-padding-top" name="alert" size="large" color="danger"></ion-icon>
+      </ion-title>
 
-        <ion-row>
-          <ion-col>
-            <ion-button class="button" expand="block" (click)="suppressionIndicateurs = false">Annuler
-              <ion-icon slot="end" name="close-circle"></ion-icon>
-            </ion-button>
-          </ion-col>
-          <ion-col>
-            <ion-button class="button" color="danger" expand="block" (click)="confirmationSuppressionIndicateur()">
-              <ion-icon slot="end" name="trash"></ion-icon>
-              <label>Valider</label>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-content>
+      <ion-row>
+        <ion-col>
+          <ion-button class="button" expand="block" (click)="suppressionIndicateurs = false">Annuler
+            <ion-icon slot="end" name="close-circle"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button class="button" color="danger" expand="block" (click)="confirmationSuppressionIndicateur()">
+            <ion-icon slot="end" name="trash"></ion-icon>
+            <label>Valider</label>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-content>
   </ng-container>
 
   <ng-container *ngIf="affichageErreur && suppressionIndicateurs == false">
