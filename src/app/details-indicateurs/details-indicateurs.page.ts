@@ -56,14 +56,14 @@ export class DetailsIndicateursPage implements OnInit {
           this.donneesLocales = donnees;
 
           if (this.donneesLocales.conditionMeteo.humidite > 66) {
-            this.icon = 'rainy';
+            this.icon = 'cloud-showers-heavy';
             this.iconColor = 'medium';
           } else {
-            this.icon = 'partly-sunny';
+            this.icon = 'cloud-sun';
             this.iconColor = 'medium';
           }
           if (this.donneesLocales.conditionMeteo.ensoleillement > 66) {
-            this.icon = 'sunny';
+            this.icon = 'sun';
             this.iconColor = 'warning';
           }
           this.notificationService.recupererAlertesPollutionPourTousIndicateurs()
