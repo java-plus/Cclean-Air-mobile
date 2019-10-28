@@ -68,7 +68,7 @@ export class MonProfilPage implements OnInit {
 
   validerSuppression(): void {
     this.profilService.supprimerProfil(this.utilisateurInitial.email).subscribe(result => {
-      this.router.navigate(['/accueil-visiteur']);
+      this.router.navigate(['/authentification']);
       this.suppression = false;
     }, (err: any) => {
       this.error = err.error;
