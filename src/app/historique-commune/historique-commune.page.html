@@ -73,9 +73,9 @@
         {{ donneesLocales.commune.nom }} - {{ nomPolluant }} en {{ unite }}
       </ion-card-header>
       <ion-card-content>
-        <canvas #lineCanvas></canvas>
+        <canvas #lineCanvas class="ion-padding-bottom"></canvas>
 
-        <ion-button class="ion-padding-vertical" expand="block" (click)="retourFormulaire()">Retour formulaire
+        <ion-button expand="block" (click)="retourFormulaire()">Retour formulaire
           <ion-icon slot="end" name="undo"></ion-icon>
         </ion-button>
       </ion-card-content>
