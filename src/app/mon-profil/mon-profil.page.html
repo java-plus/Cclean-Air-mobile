@@ -210,6 +210,9 @@
       </ion-button>
     </ion-col>
   </ion-row>
+  <ion-row>
+    <ion-label class="ion-padding-top ion-text-center" color="danger" *ngIf="error"><b>{{error}}</b></ion-label>
+  </ion-row>
 </ion-content>
 
 <ion-content *ngIf="message==true">
