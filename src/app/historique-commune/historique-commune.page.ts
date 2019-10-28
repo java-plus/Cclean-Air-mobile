@@ -126,7 +126,7 @@ export class HistoriqueCommunePage implements OnInit {
               this.dataTab.push(element.polluantDtoVisualisation.valeur);
               const dateFormatee = this.datepipe.transform(
                 element.date,
-                "dd-MM-yyyy HH:mm"
+                "dd-MM-yy HH:mm"
               );
               this.labels.push(dateFormatee);
 
