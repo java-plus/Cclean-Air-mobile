@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommuneIndicateur } from 'src/app/entities/commune-indicateur';
 import { IndicateursService } from 'src/app/services/indicateursService';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-visualiser-indicateurs',
@@ -10,6 +11,8 @@ import { IndicateursService } from 'src/app/services/indicateursService';
 export class VisualiserIndicateursPage {
 
   listeIndicateurs: CommuneIndicateur[];
+  communeSuppression: CommuneIndicateur;
+  suppressionIndicateurs = false;
 
   indicateurVide = true;
 
@@ -20,7 +23,7 @@ export class VisualiserIndicateursPage {
    * constructeur
    * @param indicateursService
    */
-  constructor(private indicateursService: IndicateursService) { }
+  constructor(private indicateursService: IndicateursService, private router: Router) { }
 
 
   /**
@@ -43,7 +46,40 @@ export class VisualiserIndicateursPage {
         },
         err => { }
       );
+  }
 
+    /**
+   * méthode qui sert à passer à l'affichage de la confirmation de suppression d'un indicateur.
+   * Elle prend en paramètre l'indicateur à supprimer
+   * @param communeIndicateur
+   */
+  supprimerIndicateur(communeIndicateur: CommuneIndicateur) {
+    this.communeSuppression = communeIndicateur;
+    this.suppressionIndicateurs = true;
+  }
+
+  /**
+   * méthode qui permet d'annuler la suppression d'un indicateur et de revenir à l'affichage des indicateurs
+   */
+  annulationSuppressionIndicateur() {
+    this.suppressionIndicateurs = false;
+  }
+
+  /**
+   * Methode qui permet la suppression définitive d'un indicateur.
+   */
+  confirmationSuppressionIndicateur() {
+    this.suppressionIndicateurs = false;
+    this.indicateursService
+      .supprimerIndicateur(this.communeSuppression.nomCommune)
+      .subscribe(
+        result => {
+          location.reload();
+        },
+        err => {
+          location.reload();
+        }
+      );
   }
 
 }

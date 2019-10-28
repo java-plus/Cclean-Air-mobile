@@ -15,17 +15,28 @@
 <ion-content>
 
 
-  <ng-container *ngIf="!affichageErreur">
+  <ng-container *ngIf="!affichageErreur && suppressionIndicateurs == false">
     <ion-card>
       <ion-card-content>
         <ion-card-title>{{donneesLocales.commune.nom | uppercase}}</ion-card-title>
         <ion-card-subtitle>({{donneesLocales.commune.nbHabitants}} habitants)</ion-card-subtitle>
 
-        <ion-button routerLink="/communes/historique/{{codeInsee}}" slot="end" size="small">
-          <ion-icon slot="end" name="list"></ion-icon>
-          <label>Historique</label>
-        </ion-button>
+        <ion-row>
+          <ion-col size-sm>
+            <ion-button routerLink="/communes/historique/{{codeInsee}}" size="small">
+              <ion-icon slot="end" name="list"></ion-icon>
+              <label>Historique</label>
+            </ion-button>
+          </ion-col>
+          <ion-col size-sm>
+            <ion-button size="small" color="danger" (click)="suppressionIndicateurs = true">
+              <ion-icon slot="end" name="trash"></ion-icon>
+              <label>Supprimer</label>
+            </ion-button>
+          </ion-col>
+        </ion-row>
       </ion-card-content>
+
 
       <ion-card-content>
         <ion-card-subtitle>
@@ -82,9 +93,30 @@
     </ion-card>
   </ng-container>
 
+  <ng-container *ngIf="suppressionIndicateurs == true">
+    <ion-content>
+      <ion-title class="ion-padding-top ion-text-center" justify-content-center align-items-center
+        style="height: 30%; flex-direction: column">Êtes-vous sûr de vouloir<br>supprimer l'indicateur ?<br>
+        <ion-icon class="ion-padding-top" name="alert" size="large" color="danger"></ion-icon>
+      </ion-title>
 
+      <ion-row>
+        <ion-col>
+          <ion-button class="button" expand="block" (click)="suppressionIndicateurs = false">Annuler
+            <ion-icon slot="end" name="close-circle"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button class="button" color="danger" expand="block" (click)="confirmationSuppressionIndicateur()">
+            <ion-icon slot="end" name="trash"></ion-icon>
+            <label>Valider</label>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-content>
+  </ng-container>
 
-  <ng-container *ngIf="affichageErreur">
+  <ng-container *ngIf="affichageErreur && suppressionIndicateurs == false">
     <ion-toolbar>
       <ion-title class="ion-text-center">Données de l'indicateur</ion-title>
     </ion-toolbar>

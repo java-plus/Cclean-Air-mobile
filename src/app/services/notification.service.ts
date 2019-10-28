@@ -15,14 +15,21 @@ export class NotificationService {
     constructor(private httpClient: HttpClient) {
     }
 
-
+    /**
+     * méthode qui retourne les alertes pollution pour les indicateurs de l'utilisateur
+     */
     recupererAlertesPollutionPourTousIndicateurs(): Observable<CommuneAlerte[]> {
         return this.httpClient.get<CommuneAlerte[]>(`${URL_BACKEND}/alertes`, {
             withCredentials: true
         });
     }
 
-
+    /**
+     *méthode qui retourne les alertes pollution pour toutes les communes
+     *
+     * @returns {Observable<CommuneAlerte[]>}
+     * @memberof NotificationService
+     */
     recupererAlertesPollutionPourCommunesANotifier(): Observable<CommuneAlerte[]> {
         return this.httpClient.get<CommuneAlerte[]>(`${URL_BACKEND}/alertes/notifications`, {
             withCredentials: true

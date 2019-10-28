@@ -2,6 +2,7 @@ import { Component, OnInit, Output } from '@angular/core';
 import { IndicateurCreation } from '../entities/Indicateur-creation';
 import { IndicateursService } from '../services/indicateursService';
 import { Router } from '@angular/router';
+import { CommuneIndicateur } from '../entities/commune-indicateur';
 
 @Component({
   selector: 'app-creer-indicateurs',
@@ -58,6 +59,4 @@ export class CreerIndicateursPage implements OnInit {
       }
     );
   }
-
-
 }
